@@ -214,9 +214,12 @@
     window.initPage = async function () {
       const { services } = await loadServices();
 
-      // Цены: только услуги категории «флоатинг»
+      // Цены: услуги категории «флоатинг» + «Романтический дуэт»
+      // (он перенесён в категорию «Программы», чтобы стоять в блоке
+      // «Парные (для двоих)» каталога, но на странице Флоатинга
+      // остаётся по указанию владельца)
       document.getElementById('float-services').innerHTML = services
-        .filter(s => s.category === 'floating')
+        .filter(s => s.category === 'floating' || s.slug === 'romanticheskiy-duet')
         .sort((a, b) => (a.order || 999) - (b.order || 999))
         .map(s => `
           <div class="card float-price reveal" style="margin-bottom:14px;border-left:3px solid var(--accent);padding:20px 24px">
