@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="СПА-программы для двоих в салоне СтудиоСпа: парные ритуалы талассо и программа для двоих с флоатингом. Романтический отдых вдвоем, цены на сайте.">
+  <title>СПА для двоих — СПА-салон СтудиоСпа в «Балтийской жемчужине»</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+</head>
+<body data-page="spa-for-two.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section class="services-hero" style="background:color-mix(in srgb, var(--cocoa) 4%, white);padding:40px 0 24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → <a href="services.html">Услуги и цены</a> → СПА для двоих</p>
+        <h1 class="section-title" style="margin-top:12px">СПА для <span class="accent font-accent">двоих</span></h1>
+        <p class="section-sub">Романтические парные программы — совместный отдых для вас двоих</p>
+        <div id="cat-tabs" class="reveal" style="margin-top:16px"></div>
+        <p style="text-align:center;color:var(--text-secondary);font-weight:500;margin-top:22px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px;vertical-align:-2.5px;margin-right:6px"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10.2v4.3"/><path d="M12 16.9v.01"/></svg>
+          Имеются противопоказания. Необходимо проконсультироваться со специалистом.</p>
+      </div>
+    </section>
+
+    <!-- Парные программы: их две группы — программы по телу и программа
+         с флоатингом. Отображаем одной группой -->
+    <section style="padding-top:28px">
+      <div class="container" id="catalog"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      const data = await loadServices();
+      document.getElementById('cat-tabs').innerHTML = renderCatTabsHtml('spa-for-two.html');
+
+      // Все парные услуги: программы для двоих + «Программа для двоих»
+      // из раздела флоатинга
+      const all = data.services
+        .filter(s => /двоих/i.test(s.subtitle || ''))
+        .sort((a, b) => (a.order || 999) - (b.order || 999));
+
+      document.getElementById('catalog').innerHTML =
+        renderCatalogGroups([{ title: 'Программы для двоих', rows: all }], { hideSubtitle: true });
+      initReveal();
+    };
+  </script>
+</body>
+</html>

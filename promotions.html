@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Акции и специальные предложения СПА-салона СтудиоСпа в СПб. Скидки на флоатинг, массажные программы, подарочные сертификаты.">
+  <title>Акции — СПА-салон СтудиоСпа</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы акций — желтый (решение Наты 07.11.2026) */
+    body { --accent: var(--yellow); }
+  </style>
+</head>
+<body data-page="promotions.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section style="padding-bottom:24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Акции</p>
+        <h1 class="section-title" style="margin-top:12px">Действующие <span class="accent font-accent">акции</span></h1>
+        <p class="section-sub">Подарите себе приятное — по более приятной цене</p>
+      </div>
+    </section>
+
+    <!-- Акции ноября 2026: список от владельца 04.11.2026 (скрины в папке New).
+         ПОСЛЕ НОЯБРЯ — убрать завершившиеся акции и вернуть обычные цены
+         в data/services.js (там oldPrice у «Талассо Кальциум» и «Формула молодости»). -->
+    <section style="padding-top:0">
+      <div class="container">
+        <h2 class="section-title reveal" style="font-size:32px;margin-bottom:8px">Акции <span class="accent font-accent">ноября</span></h2>
+        <p class="section-sub reveal" style="margin-bottom:36px">Предложения действуют весь ноябрь</p>
+        <div class="duo-grid">
+          <!-- Флоатинг + аква-спа для волос -->
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">Весь ноябрь</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Флоатинг за полцены при записи на аква-спа для волос</h3>
+            <p style="color:var(--text-secondary)">Всем гостям скидка 50% на флоатинг при записи
+               на любую программу спа для головы и волос. Или соберите комплекс сразу:</p>
+            <ul style="margin:14px 0 0;padding:0;list-style:none;color:var(--text-secondary);font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:12px">
+              <li><strong>Флоатинг + Акварелакс</strong> — голова, ладони, ступни<br>120 мин — 6 500 ₽ <s style="color:var(--text-light)">8 000 ₽</s></li>
+              <li><strong>Флоатинг + Аквамедитация</strong> — голова, лицо, руки, ноги, паровой купол<br>150 мин — 8 500 ₽ <s style="color:var(--text-light)">10 000 ₽</s></li>
+              <li><strong>Против выпадения волос</strong> — флоатинг + Пробуждение<br>120 мин — 8 000 ₽ <s style="color:var(--text-light)">9 500 ₽</s></li>
+              <li><strong>Комплекс для мужчин</strong> — флоатинг + Антистресс<br>120 мин — 6 500 ₽ <s style="color:var(--text-light)">8 000 ₽</s></li>
+            </ul>
+            <p style="margin-top:16px"><a href="hair.html" class="btn btn-ghost" style="padding:8px 22px;font-size:14px">Программы для волос</a></p>
+          </div>
+          <!-- Талассо Кальциум -->
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">Весь ноябрь</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Комплекс «Талассо Кальциум»</h3>
+            <p style="color:var(--text-secondary)">90 мин — <strong style="color:var(--chocolate)">7 700 ₽</strong> <s style="color:var(--text-light)">9 800 ₽</s></p>
+            <ul style="margin:12px 0 0;padding:0 0 0 2px;list-style:none;color:var(--text-secondary);font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:6px">
+              <li>› Талассо-скраб</li>
+              <li>› Подводный гидромассаж с добавлением магниевой соли</li>
+              <li>› Нанесение концентрата кальция на все тело</li>
+            </ul>
+            <p style="color:var(--text-secondary);margin-top:12px;font-size:15px">Восстанавливает плотность тканей и защитные силы
+               организма — в период восстановления, при усталости, стрессе и ослабленном иммунитете.</p>
+            <p style="margin-top:16px"><a href="service.html?slug=talasso-kalcium" class="btn btn-ghost" style="padding:8px 22px;font-size:14px">Подробнее</a></p>
+          </div>
+          <!-- Формула молодости -->
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">Весь ноябрь</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Комплекс «Формула молодости»</h3>
+            <p style="color:var(--text-secondary)">30 мин — <strong style="color:var(--chocolate)">2 300 ₽</strong> <s style="color:var(--text-light)">3 000 ₽</s></p>
+            <ul style="margin:12px 0 0;padding:0 0 0 2px;list-style:none;color:var(--text-secondary);font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:6px">
+              <li>› Очищение</li>
+              <li>› Экспресс-массаж</li>
+              <li>› Нанесение сыворотки с эффектом ботокса</li>
+              <li>› Микротоковая терапия</li>
+              <li>› Завершающий крем</li>
+            </ul>
+            <p style="color:var(--text-secondary);margin-top:12px;font-size:15px">Работа с мимическими морщинами
+               и подтяжка овала лица.</p>
+            <p style="margin-top:16px"><a href="service.html?slug=formula-molodosti" class="btn btn-ghost" style="padding:8px 22px;font-size:14px">Подробнее</a></p>
+          </div>
+          <!-- Стройность и детокс −20% -->
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">Весь ноябрь</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">−20% на программы для стройности</h3>
+            <p style="color:var(--text-secondary)">Все комплексы из раздела стройности и детокс —
+               со скидкой 20%.</p>
+            <p style="color:var(--text-light);font-size:14px">Подробная информация у администратора салона</p>
+            <p style="margin-top:16px"><a href="programs.html" class="btn btn-ghost" style="padding:8px 22px;font-size:14px">Детокс-программы</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Постоянные предложения (без срока действия): счастливые часы на
+         флоатинг, сертификаты, день рождения, конструктор абонементов -->
+    <section style="padding-top:24px">
+      <div class="container">
+        <h2 class="section-title reveal" style="font-size:32px;margin-bottom:36px">Постоянно в <span class="accent font-accent">салоне</span></h2>
+        <div class="duo-grid">
+          <!-- Все карточки в едином акценте страницы (ментол) -->
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">Счастливые часы</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Скидка 20% на флоатинг по будням</h3>
+            <p style="color:var(--text-secondary)">По будням с 10:00 до 15:00 — скидка на флоатинг в дневное время.
+               Идеальный способ подарить себе невесомость и расслабление.</p>
+            <p style="color:var(--text-light);font-size:14px">Уточните актуальные условия по телефону</p>
+            <a href="contacts.html" class="btn btn-ghost">Записаться</a>
+          </div>
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge">Подарочный сертификат</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Сертификат на любую сумму</h3>
+            <p style="color:var(--text-secondary)">Подарите близкому человеку время для себя: сертификат
+               действует на все услуги салона и не имеет срока давности.</p>
+            <p style="color:var(--text-light);font-size:14px">Уточните актуальные условия по телефону</p>
+            <a href="contacts.html" class="btn btn-ghost">Приобрести</a>
+          </div>
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge badge-promo">День рождения</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Специальное предложение для именинников</h3>
+            <p style="color:var(--text-secondary)">Отметьте день рождения в СтудиоСпа — программы для компании
+               рассчитываются индивидуально.</p>
+            <p style="color:var(--text-light);font-size:14px">Уточните актуальные условия по телефону</p>
+            <a href="contacts.html" class="btn btn-ghost">Уточнить</a>
+          </div>
+          <div class="card reveal" style="border-top:4px solid var(--accent)">
+            <span class="badge">Абонемент</span>
+            <h3 class="font-accent" style="font-size:24px;margin:14px 0 8px">Конструктор абонементов</h3>
+            <p style="color:var(--text-secondary)">Соберите свой курс процедур — абонемент на несколько визитов
+               выгоднее разовых. Количество и состав посещений подберем вместе с&nbsp;администратором.</p>
+            <p style="color:var(--text-light);font-size:14px">Уточните актуальные условия по телефону</p>
+            <a href="contacts.html" class="btn btn-ghost">Собрать абонемент</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+</body>
+</html>

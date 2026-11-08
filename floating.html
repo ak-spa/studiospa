@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Флоатинг в СПА-салоне СтудиоСпа: невесомость в камере солевой флотации. Польза, цены, противопоказания. Запись: +7 (812) 929-20-16">
+  <title>Флоатинг — СПА-салон СтудиоСпа в «Балтийской жемчужине»</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы флоатинга — лаванда #89B3E7 из брендбука
+       (пробная замена голубого #7EC8E3; вернуться можно на var(--float-blue)) */
+    body { --accent: var(--mint); }
+    /* Бейдж и вводная строка в Противопоказаниях — по центру на всех экранах */
+    body[data-page="floating.html"] .contra-wrap .badge,
+    body[data-page="floating.html"] .contra-wrap > p { display: block; text-align: center; }
+    body[data-page="floating.html"] .contra-wrap .badge { width: fit-content; margin-left: auto; margin-right: auto; }
+    /* Значки часов у длительности в карточках цен — мелкие, в строке с текстом */
+    .float-price svg { width:14px; height:14px; vertical-align:-2.5px; margin-right:6px; }
+  </style>
+</head>
+<body data-page="floating.html">
+  <header class="site-header"></header>
+
+  <main>
+    <!-- Герой: слева описание, справа видео. Класс hero — шоколадный
+         фон, как на Главной (пожелание владельца — сайт потемнее).
+         Проба 04.11.2026: орнамент как на герое Главной —
+         pattern-happy, шаг 1320px, тонировка плотнее (0.92), узор бледнее.
+         Откат: убрать style в атрибуте секции -->
+    <section class="hero" style="background:linear-gradient(rgba(61,45,34,.92),rgba(61,45,34,.92)),url('img/pattern-happy.png') center / 1320px auto">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Флоатинг</p>
+        <div class="hero-grid" style="margin-top:20px">
+          <div class="reveal">
+            <span class="badge badge-promo">✦ Флоатинг</span>
+            <h1 style="font-size:46px">Невесомость, дарящая <span class="accent font-accent">свободу</span></h1>
+            <p class="lead">Флоатинг — это уникальная процедура, во время которой вы находитесь
+               в камере солевой флотации. Высокая концентрация соли позволяет телу
+               парить на поверхности воды, полностью снимая нагрузку с позвоночника
+               и мышц. Это состояние абсолютного расслабления.</p>
+            <p class="btn-row" style="margin-top:28px">
+              <a href="contacts.html" class="btn btn-primary">Записаться на флоатинг</a>
+              <a href="#float-prices" class="btn btn-ghost">Цены</a>
+            </p>
+          </div>
+          <div class="reveal float-video" style="text-align:center">
+            <!-- Заглушка-постер видна до нажатия кнопки Play -->
+            <video src="img/floating.mp4" poster="img/floating-poster.jpg" preload="metadata" controls
+              style="width:100%;max-width:420px;border-radius:28px;box-shadow:var(--shadow-card);display:block;background:#0b0b0c"></video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Акция «Счастливые часы»: та же раскладка, что на Главной,
+         но все цвета берутся из акцента этой страницы (лаванда) -->
+    <section style="background:color-mix(in srgb, var(--accent) 3%, white)">
+      <div class="container">
+        <div class="promo-band reveal">
+          <img src="img/happy-hours.png" alt="Счастливые часы на флоатинг — чайный стол с подсвеченной соляной стеной" class="promo-band-photo">
+          <div class="promo-band-body">
+            <span>✦ Акция</span>
+            <h2>«Счастливые часы» <span class="accent font-accent">в&nbsp;СтудиоСпа</span></h2>
+            <p>По&nbsp;будням с&nbsp;10:00 до&nbsp;15:00 — скидка <strong>20%</strong> на&nbsp;флоатинг.<br>
+               Идеальное время, чтобы подарить себе невесомость и&nbsp;полное расслабление.</p>
+            <a href="contacts.html" class="btn btn-primary">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Что такое флоатинг -->
+    <section style="background:#fff">
+      <div class="container">
+        <h2 class="section-title reveal">Что такое <span class="accent font-accent">флоатинг</span>?</h2>
+        <p class="section-sub reveal">Наука расслабления в действии</p>
+        <div class="trio-grid" style="gap:26px">
+          <div class="card reveal" style="text-align:center">
+            <div style="width:64px;height:64px;margin:0 auto 18px;border-radius:18px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Lora';font-size:24px">01</div>
+            <h3 class="font-accent">Камера флотации</h3>
+            <p style="color:var(--text-secondary);font-size:15px">Вы находитесь в капсуле с теплой водой (35°C), насыщенной 500 кг английской соли.</p>
+          </div>
+          <div class="card reveal" style="text-align:center">
+            <div style="width:64px;height:64px;margin:0 auto 18px;border-radius:18px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Lora';font-size:24px">02</div>
+            <h3 class="font-accent">Полная невесомость</h3>
+            <p style="color:var(--text-secondary);font-size:15px">Тело всплывает на поверхность, позвоночник и мышцы полностью разгружаются.</p>
+          </div>
+          <div class="card reveal" style="text-align:center">
+            <div style="width:64px;height:64px;margin:0 auto 18px;border-radius:18px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Lora';font-size:24px">03</div>
+            <h3 class="font-accent">Глубокая релаксация</h3>
+            <p style="color:var(--text-secondary);font-size:15px">Мозг переходит в тета-состояние — как в глубокой медитации. 1 час = 4 часа сна.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Польза -->
+    <section>
+      <div class="container">
+        <h2 class="section-title reveal">Польза <span class="accent font-accent">флоатинга</span></h2>
+        <p class="section-sub reveal">Что вы получите после сеанса</p>
+        <div class="trio-grid">
+          <!-- Тонкие линейные иконки в кружке: эмодзи убраны -->
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h9.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h13.5a3 3 0 1 1-3 3"/><path d="M3 16h7.5a2 2 0 1 1-2 2"/></svg>
+            </div>
+            <div><h3 class="font-accent">Снятие стресса</h3><p>Снижается уровень кортизола, уходит тревожность</p></div>
+          </div>
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <!-- позвоночник: ось с дисками, без «косточки» -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M10 5.5h4"/><path d="M10 8.5h4"/><path d="M10 11.5h4"/><path d="M10 14.5h4"/><path d="M10 17.5h4"/></svg>
+            </div>
+            <div><h3 class="font-accent">Снятие боли в спине</h3><p>Позвоночник полностью разгружается</p></div>
+          </div>
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </div>
+            <div><h3 class="font-accent">Улучшение сна</h3><p>Нормализуются циркадные ритмы</p></div>
+          </div>
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="3" height="10" rx="1.2"/><rect x="17" y="7" width="3" height="10" rx="1.2"/><path d="M7 12h10"/></svg>
+            </div>
+            <div><h3 class="font-accent">Восстановление мышц</h3><p>После тренировок и тяжелого дня</p></div>
+          </div>
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.6 6 10.6a6 6 0 0 1-12 0C6 9.6 12 3 12 3z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg>
+            </div>
+            <div><h3 class="font-accent">Улучшение кожи</h3><p>Соль питает и очищает кожу</p></div>
+          </div>
+          <div class="card benefit-row reveal">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-4 12.7c.7.5 1 1.5 1 2.3h6c0-.8.3-1.8 1-2.3a7 7 0 0 0-4-12.7z"/><path d="M9.5 20.5h5"/><path d="M10 23h4"/></svg>
+            </div>
+            <div><h3 class="font-accent">Творческий подъем</h3><p>Тета-состояние открывает новые идеи</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Цены: наполняются из реальной базы услуг (категория floating) -->
+    <section style="background:#fff" id="float-prices">
+      <div class="container">
+        <h2 class="section-title reveal">СПА с <span class="accent font-accent">флоатингом</span></h2>
+        <p class="section-sub reveal">Выберите удобный формат</p>
+        <div id="float-services" style="max-width:760px;margin:0 auto"></div>
+      </div>
+    </section>
+
+    <!-- Призыв: ОДОБРЕНО Натой 07.11.2026 — вместо насыщенного градиента
+         бледный орнамент, как в «Счастливых часах» на Главной, пелена
+         подкрашена ментолом (голубовато-зеленая гамма): rgba = ментол
+         #83d6d6, разведенный до 10% в белом, слой плотности 90%. -->
+    <section class="float-cta" style="background:linear-gradient(rgba(243,251,251,0.9),rgba(243,251,251,0.9)),url('img/pattern-happy.png') center / 1320px auto;color:var(--chocolate);text-align:center">
+      <div class="container reveal">
+        <h2 style="font-family:'Roboto Condensed',sans-serif;font-weight:500;font-size:34px;color:var(--heading-color);margin:0 0 12px;letter-spacing:.01em">Готовы испытать <span class="font-accent" style="font-size:42px;color:var(--accent)">невесомость</span>?</h2>
+        <p style="font-size:18px;margin:0 0 28px">Запишитесь на флоатинг и подарите себе час абсолютного покоя</p>
+        <a href="contacts.html" class="btn btn-primary">Записаться на флоатинг</a>
+      </div>
+    </section>
+
+    <!-- Противопоказания -->
+    <section>
+      <div class="container contra-wrap" style="max-width:800px">
+        <span class="badge reveal">Важно знать</span>
+        <h2 class="section-title reveal" style="margin-top:10px">Противопоказания</h2>
+        <p class="reveal" style="color:var(--text-secondary)">Перед сеансом флоатинга обязательно проконсультируйтесь с врачом, если у вас есть:</p>
+        <div id="float-contras" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px" data-ok></div>
+      </div>
+    </section>
+
+    <!-- Часто задаваемые вопросы: тексты с оригинального сайта studiospa.spb.ru/float -->
+    <section style="background:color-mix(in srgb, var(--accent) 3%, white)">
+      <div class="container" style="max-width:760px">
+        <h2 class="section-title reveal">Часто задаваемые <span class="accent font-accent">вопросы</span></h2>
+        <p class="section-sub reveal">Коротко о самом важном</p>
+        <div class="faq-list reveal">
+          <details class="faq-item" open>
+            <summary>Болезненно ли это?</summary>
+            <p>Нет, процедура абсолютно безболезненна.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Нужно ли готовиться заранее?</summary>
+            <p>Достаточно принять душ.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли заснуть?</summary>
+            <p>Да, но это не опасно — вы всегда будете на поверхности.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Какой температуры вода?</summary>
+            <p>Вода имеет комфортную температуру 35,5°C.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Какая глубина воды?</summary>
+            <p>Глубина воды — 30 см.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      const { services } = await loadServices();
+
+      // Цены: только услуги категории «флоатинг»
+      document.getElementById('float-services').innerHTML = services
+        .filter(s => s.category === 'floating')
+        .sort((a, b) => (a.order || 999) - (b.order || 999))
+        .map(s => `
+          <div class="card float-price reveal" style="margin-bottom:14px;border-left:3px solid var(--accent);padding:20px 24px">
+            <div class="fp-head" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div>
+                <h3 class="font-accent" style="margin:0;font-size:20px">${s.name}</h3>
+                ${s.duration ? `<div style="color:var(--text-light);font-size:14px">${ICON_CLOCK} ${s.duration2 ? s.duration + ' / ' + s.duration2 : s.duration}</div>` : ''}
+              </div>
+              <div style="font-family:'Lora';font-weight:600;color:var(--accent);font-size:22px">
+                ${formatPrice(s.price)}${s.price2 ? ' / ' + formatPrice(s.price2) : ''}
+              </div>
+            </div>
+            ${s.description ? `<p style="color:var(--text-secondary);font-size:15px;margin:10px 0 0">${renderDesc(s.description)}</p>` : ''}
+            ${s.includes.length ? `
+              <ul class="srv-includes" style="margin-top:10px">
+                ${s.includes.map(i => {
+                  const t = i.trim();
+                  const cls = /^Гость \d+$/.test(t) ? 'head' : (/^(По окончании|Совместный отдых)/.test(t) ? 'note' : '');
+                  return `<li class="${cls}">${i}</li>`;
+                }).join('')}
+              </ul>` : ''}
+            <div class="fp-cta" style="border-top:1px solid #eee;margin-top:14px;padding-top:12px">
+              <a href="contacts.html" class="btn btn-ghost" style="padding:6px 18px;font-size:14px">Записаться</a>
+            </div>
+          </div>`).join('');
+
+      // Противопоказания
+      const contras = ['Эпилепсия', 'Открытые раны и кожные заболевания', 'Тяжелые сердечно-сосудистые заболевания',
+        'Острые инфекционные заболевания', 'Беременность (требуется консультация врача)',
+        'Алкогольное или наркотическое опьянение', 'Психические расстройства', 'Менструация (рекомендуется отложить)'];
+      document.getElementById('float-contras').innerHTML = contras
+        .map(c => `<span class="card reveal" style="padding:10px 16px;font-size:15px;color:var(--text-secondary)">• ${c}</span>`).join('');
+      initReveal();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Спа для головы и волос с аква-дугой в салоне СтудиоСпа: программы Пробуждение, Антистресс для него, Аквамедитация, Акварелакс. Косметика Давинес, цены на сайте.">
+  <title>Спа для головы и волос — СПА-салон СтудиоСпа в «Балтийской жемчужине»</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы волос — лаванда (решение Наты 07.11.2026) */
+    body { --accent: var(--mint); }
+  </style>
+</head>
+<body data-page="hair.html">
+  <header class="site-header"></header>
+
+  <main>
+    <!-- Герой раздела: шоколадный, как на Флоатинге (пожелание владельца —
+         темные зоны на светлом сайте); справа кадр ритуала с аква-дугой.
+         Проба 04.11.2026: орнамент как на герое Главной —
+         pattern-happy, шаг 1320px, тонировка плотнее (0.92), узор бледнее.
+         Откат: убрать style в атрибуте секции -->
+    <section class="hero" style="background:linear-gradient(rgba(61,45,34,.92),rgba(61,45,34,.92)),url('img/pattern-happy.png') center / 1320px auto">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → <a href="services.html">Услуги и цены</a> → Спа для головы и волос</p>
+        <div class="hero-grid" style="margin-top:20px">
+          <div class="reveal">
+            <span class="badge badge-promo">✦ Ритуал с аква-дугой</span>
+            <h1 style="font-size:46px">Спа для головы и <span class="accent font-accent">волос</span></h1>
+            <p class="lead">Теплая вода льется по золотым спицам аква-дуги мягким дождем,
+               пока мастер ухаживает за головой, лицом и волосами. Глубокое
+               расслабление и профессиональный уход на косметике Давинес.</p>
+            <p class="btn-row" style="margin-top:26px">
+              <a href="contacts.html" class="btn btn-primary">Записаться</a>
+              <a href="promotions.html" class="btn btn-ghost">Акции ноября</a>
+            </p>
+          </div>
+          <div class="reveal" style="text-align:center">
+            <img src="img/hair-hero.jpg" alt="Ритуал с аква-дугой: теплая вода струится по золотым спицам над гостем" style="width:100%;max-width:440px;border-radius:28px;box-shadow:var(--shadow-card);display:block;margin:0 auto">
+          </div>
+        </div>
+        <!-- Вкладки разделов и напоминание о противопоказаниях -->
+        <div id="cat-tabs" class="reveal" style="margin-top:6px"></div>
+        <p style="text-align:center;color:var(--cream);opacity:.85;font-weight:500;margin:18px 0 0;font-size:14px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px;vertical-align:-2.5px;margin-right:6px"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10.2v4.3"/><path d="M12 16.9v.01"/></svg>
+          Имеются противопоказания. Необходимо проконсультироваться со специалистом.</p>
+      </div>
+    </section>
+
+    <!-- Программы раздела: наполняются из data/services.js (категория hair) -->
+    <section style="padding-top:28px">
+      <div class="container" id="catalog"></div>
+    </section>
+
+    <!-- Кадры из салона (фото владельца 04.11.2026) -->
+    <section style="background:color-mix(in srgb, var(--cocoa) 4%, white)">
+      <div class="container">
+        <h2 class="section-title reveal">Как проходит <span class="accent font-accent">ритуал</span></h2>
+        <p class="section-sub reveal">Кадры из нашего салона</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+          <figure class="card reveal" style="padding:0;overflow:hidden;margin:0">
+            <img src="img/hair-face-brush.jpg" alt="СПА-ритуал с аква-дугой — вода льется по спицам на голову" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+            <figcaption style="padding:12px 18px;font-size:14px;color:var(--text-secondary);text-align:center">СПА-ритуал с аква-дугой</figcaption>
+          </figure>
+          <figure class="card reveal" style="padding:0;overflow:hidden;margin:0">
+            <img src="img/hair-head-jade.jpg" alt="Массаж головы и маска на глазах — глубокое расслабление" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+            <figcaption style="padding:12px 18px;font-size:14px;color:var(--text-secondary);text-align:center">Массаж головы и маска на глазах</figcaption>
+          </figure>
+          <figure class="card reveal" style="padding:0;overflow:hidden;margin:0">
+            <img src="img/hair-men.jpg" alt="Расслабление под аква-дугой — мягкий поток теплой воды" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+            <figcaption style="padding:12px 18px;font-size:14px;color:var(--text-secondary);text-align:center">Расслабление под аква-дугой</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      document.getElementById('cat-tabs').innerHTML = renderCatTabsHtml('hair.html');
+
+      const data = await loadServices();
+      const cat = data.categories.find(c => c.key === 'hair');
+      const all = data.services
+        .filter(s => s.category === 'hair')
+        .sort((a, b) => (a.order || 999) - (b.order || 999));
+
+      document.getElementById('catalog').innerHTML =
+        catHeadHtml(cat)
+        + renderCatalogGroups([{ title: 'Спа для головы и волос с аква-дугой', rows: all }], { hideSubtitle: true });
+      initReveal();
+    };
+  </script>
+</body>
+</html>

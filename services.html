@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Услуги и цены СПА-салона СтудиоСпа: СПА-меню с разделами — тело, лицо, флоатинг, спа для волос, программы. Все цены на сайте.">
+  <title>Услуги и цены СПА-салона СтудиоСпа в «Балтийской жемчужине»</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+</head>
+<body data-page="services.html">
+  <header class="site-header"></header>
+
+  <main>
+    <!-- Легкая какао-тонировка вместо чистого белого: страница «теплее»
+         и дружит с шоколадными зонами остального сайта -->
+    <section class="services-hero" style="background:color-mix(in srgb, var(--cocoa) 4%, white);padding:40px 0 24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Услуги и цены</p>
+        <h1 class="section-title" style="margin-top:12px">Услуги и <span class="accent font-accent">цены</span></h1>
+        <p class="section-sub">Познакомьтесь с нашими процедурами поближе</p>
+        <p style="text-align:center" class="font-accent">Индивидуальное составление программ и конструктор абонементов</p>
+        <p style="text-align:center;color:var(--text-secondary);font-weight:500">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px;vertical-align:-2.5px;margin-right:6px"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10.2v4.3"/><path d="M12 16.9v.01"/></svg>
+          Имеются противопоказания. Необходимо проконсультироваться со специалистом.</p>
+        <p style="text-align:center"><a href="search.html" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="width:16px;height:16px;vertical-align:-3px;margin-right:8px"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Поиск по услугам</a></p>
+      </div>
+    </section>
+
+    <!-- Кнопки-вкладки разделов (как на референсе владельца): клик ведет
+         на отдельную страницу раздела — ее можно отправить клиенту целиком.
+         Ниже, для удобства, остается весь каталог со всеми услугами. -->
+    <section style="padding-top:28px">
+      <div class="container">
+        <h2 class="section-title reveal">СПА–<span class="accent font-accent">меню</span> СтудиоСпа</h2>
+        <p class="section-sub reveal">Выберите раздел — откроется страница со всеми услугами и ценами</p>
+        <div id="cat-tabs" class="reveal"></div>
+
+        <!-- Абонементы: выделены отдельной полосой, как просил владелец -->
+        <div class="abon-band reveal" style="margin-top:34px">
+          <div class="abon-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M3 10h18"/><path d="M7 14.5h6"/></svg>
+          </div>
+          <div>
+            <h3>Абонементы — курс процедур выгоднее разовых визитов</h3>
+            <p>На массажные уходы и часть процедур действует абонементная цена:
+               она отмечена в строках услуг как «Абонемент». Количество
+               посещений и состав курса подберет администратор.
+               <a href="abonements.html" style="color:inherit;text-decoration:underline">Все абонементы и депозиты →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Каталог: разделы и услуги подставляются из data/services.js -->
+    <section style="padding-top:12px">
+      <div class="container" id="catalog"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    /* Под-блоки разделов, как на страницах оригинального сайта:
+       каждая услуга попадает в под-блок по своему подзаголовку. */
+    const SUB_BLOCKS = {
+      body: [
+        { title: 'Спа-массажный уход', test: s => /массажный уход по телу/i.test(s.subtitle || '') },
+        { title: 'Доп. услуги', test: s => (s.subtitle || '') === 'Дополнительные услуги' },
+      ],
+      programs: [
+        { title: 'СПА–ритуалы талассо', test: s => /талассо/i.test(s.subtitle || '') },
+        { title: 'Наши программы', test: s => (s.subtitle || '') === 'Наши программы' },
+        { title: 'Детокс-программы', test: s => /детокс/i.test(s.subtitle || '') },
+        { title: 'Для деловых мужчин', test: s => /мужчин/i.test(s.subtitle || '') },
+        { title: 'Для беременных', test: s => /беременн/i.test(s.subtitle || '') },
+        { title: 'Парные (для двоих)', test: s => /двоих/i.test(s.subtitle || '') },
+      ],
+      face: [
+        { title: 'Спа-массажный уход', test: s => /массажный уход по лицу/i.test(s.subtitle || '') },
+        { title: 'Уходы', test: s => !(s.subtitle || '') },
+        { title: 'Доп. услуги', test: s => (s.subtitle || '') === 'Дополнительные услуги' },
+      ],
+      hair: [
+        { title: 'Спа для головы и волос с аква-дугой', test: () => true },
+      ],
+    };
+
+    window.initPage = async function (site) {
+      const data = await loadServices();
+      const catalog = document.getElementById('catalog');
+
+      // Кнопки-вкладки разделов (общая функция из app.js)
+      document.getElementById('cat-tabs').innerHTML = renderCatTabsHtml(null);
+
+      data.categories.forEach(cat => {
+        // Флоатинг: у него отдельная страница — в каталоге будет карточка ниже
+        if (cat.key === 'floating') return;
+        const all = data.services
+          .filter(s => s.category === cat.key)
+          .sort((a, b) => (a.order || 999) - (b.order || 999));
+        if (!all.length) return;
+
+        // Заголовок раздела + под-блоки (в «Прочее» уйдет все неопознанное)
+        catalog.insertAdjacentHTML('beforeend', catHeadHtml(cat));
+        catalog.insertAdjacentHTML('beforeend',
+          renderCatalogGroups(groupServices(all, SUB_BLOCKS[cat.key] || [])));
+      });
+
+      // Флоатинг: раздел-ссылка с описанием (якорь для СПА-меню) + Аренда СПА
+      const salon = site.salon;
+      catalog.insertAdjacentHTML('beforeend', `
+        <a href="floating.html" class="float-card reveal" id="sect-floating">
+          <div class="float-card-inner">
+            <div class="float-icon">${CAT_ICONS.floating}</div>
+            <div class="float-content">
+              <h3>Флоатинг</h3>
+              <p class="float-desc">Камера сенсорной депривации — уникальная процедура полного
+                расслабления в соленой воде. Подарите себе невесомость и глубокий покой.</p>
+              <span class="float-link">Подробнее о флоатинге <span class="float-arrow">›</span></span>
+            </div>
+          </div>
+        </a>
+        <div class="rental-card reveal">
+          <div class="float-card-inner">
+            <div class="float-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+            </div>
+            <div class="float-content">
+              <h3>Аренда СПА</h3>
+              <p class="float-desc">В СтудиоСпа открыта услуга «Аренда СПА». Вы можете отметить
+                день рождения, провести романтическую встречу, встретиться с подругами.
+                Программы для каждого гостя и все условия аренды рассчитываются индивидуально.</p>
+              <p class="float-sub">Подробности по телефону</p>
+              <a href="${salon.phoneLink}" class="float-phone">${salon.phone}</a>
+            </div>
+          </div>
+        </div>`);
+      initReveal();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Описание и заголовок подставятся из data/services.js под конкретную услугу -->
+  <meta name="description" content="СПА-салон СтудиоСпа — услуги и цены">
+  <title>Услуга — СПА-салон СтудиоСпа</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Значки (часы, восклицание) в карточке услуги — в строке с текстом */
+    .price-box svg { width:15px; height:15px; vertical-align:-2.5px; margin-right:6px; }
+  </style>
+</head>
+<body data-page="service.html">
+  <header class="site-header"></header>
+
+  <main>
+    <div class="container">
+      <p class="breadcrumbs" id="breadcrumbs"></p>
+    </div>
+
+    <!-- Карточка услуги: наполняется из data/services.js по ?slug=... -->
+    <section>
+      <div class="container">
+        <div id="service-card" class="card reveal">
+          <p style="color:var(--text-light)">Услуга не найдена. <a href="services.html">Вернуться к каталогу</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Похожие услуги той же категории -->
+    <section style="background:#fff">
+      <div class="container" id="similar" style="display:none">
+        <h2 class="section-title reveal">Похожие <span class="accent font-accent">услуги</span></h2>
+        <div id="similar-grid" class="trio-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      const data = await loadServices();
+      const ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10.2v4.3"/><path d="M12 16.9v.01"/></svg>';
+
+      // ?slug=имя-услуги — то, что стоит после знака равенства в адресе
+      const slug = new URLSearchParams(location.search).get('slug');
+      const s = data.services.find(x => x.slug === slug);
+      if (!s) return; // останется заглушка «услуга не найдена»
+
+      const cat = data.categories.find(c => c.key === s.category);
+
+      // Заголовок страницы и крошки — под конкретную услугу
+      document.title = `${s.name} — цены — СПА-салон СтудиоСпа`;
+      document.querySelector('meta[name="description"]')
+        .setAttribute('content', `${s.name} в СПА-салоне СтудиоСпа: ${s.subtitle || 'описание, цены, длительность'}. Запись: +7 (812) 929-20-16`);
+      document.getElementById('breadcrumbs').innerHTML =
+        `<a href="index.html">Главная</a> → <a href="services.html">Услуги и цены</a> → ${s.name}`;
+
+      // Основная карточка
+      const card = document.getElementById('service-card');
+      card.innerHTML = `
+        <div class="detail-grid">
+          <div >
+            ${s.popular ? '<span class="badge">★ Хит — выбирают чаще всего</span>' : ''}
+            <h1 style="font-size:36px;margin:14px 0 4px">${s.name}</h1>
+            ${s.subtitle ? `<p class="section-sub" style="text-align:left;margin:0 0 18px">${s.subtitle}</p>` : ''}
+            ${s.description ? `<p style="color:var(--text-secondary);white-space:pre-line">${renderDesc(s.description)}</p>` : ''}
+            ${s.includes.length ? `
+              <h3 style="margin:22px 0 8px;font-size:20px">Что входит</h3>
+              <ul class="srv-includes" style="margin-top:0">
+                ${s.includes.map(i => {
+                  const t = i.trim();
+                  const cls = /^Гость \d+$/.test(t) ? 'head' : (/^(По окончании|Совместный отдых)/.test(t) ? 'note' : '');
+                  return `<li class="${cls}">${i}</li>`;
+                }).join('')}
+              </ul>` : ''}
+          </div>
+          <div class="card price-box" >
+            <div style="font-family:'Lora';font-size:40px;font-weight:600;color:var(--accent)">
+              ${formatPrice(s.price)}</div>
+            ${s.oldPrice ? `<div style="color:var(--text-light);text-decoration:line-through">${formatPrice(s.oldPrice)}</div>` : ''}
+            ${s.price2 ? `<p style="color:var(--text-secondary);margin:10px 0 0">Абонемент: <b>${formatPrice(s.price2)}</b>${s.duration2 ? ` · ${s.duration2}` : ''}</p>` : ''}
+            ${s.duration ? `<p style="color:var(--text-secondary);margin:12px 0 0">${ICON_CLOCK} Длительность: ${s.duration}</p>` : ''}
+            <p style="color:var(--text-light);font-size:14px;font-weight:500;margin-top:16px">
+              ${ICON_WARN} Имеются противопоказания. Необходима консультация специалиста.</p>
+            <a href="contacts.html" class="btn btn-primary" style="width:100%;text-align:center;margin-top:10px">Записаться на процедуру</a>
+            <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;text-align:center">
+              По телефону <a href="tel:+78129292016">+7 (812) 929-20-16</a></p>
+          </div>
+        </div>`;
+
+      // Похожие услуги: та же категория, исключая текущую, максимум 3
+      const similar = data.services
+        .filter(x => x.category === s.category && x.slug !== s.slug)
+        .sort((a, b) => (a.order || 999) - (b.order || 999))
+        .slice(0, 3);
+      if (similar.length) {
+        document.getElementById('similar').style.display = 'block';
+        document.getElementById('similar-grid').innerHTML = similar.map(x => `
+          <a href="service.html?slug=${x.slug}" class="card reveal">
+            <h3 class="font-accent" style="font-size:19px;margin:0 0 6px;display:inline">${x.name}</h3>
+            <span style="float:right;color:var(--accent);font-family:'Lora';font-weight:600">${formatPrice(x.price)}</span>
+            <p style="color:var(--text-secondary);margin:8px 0 0">${x.subtitle || (x.description || '').slice(0, 90)}</p>
+          </a>`).join('');
+      }
+      initReveal();
+    };
+  </script>
+</body>
+</html>

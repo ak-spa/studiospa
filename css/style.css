@@ -1,0 +1,1118 @@
+/* ============================================================
+   СтудиоСпа — общие стили
+   Дизайн по чатиум-версии: светлая тема, Lora
+   (заголовки) + Roboto Condensed (текст), теплая палитра.
+   ============================================================ */
+
+:root {
+  /* ============ ПАЛИТРА: ТОЧНО ПО БРЕНДБУКУ ============
+     Брендбук: коралл #f19985, желтый #fcc078, ментол #83d6d6,
+     лаванда #89B3E7, какао #8b7667, шоколад #433b30/#3d2d22, серый #515151.
+     Чатиум НЕ источник цветов (решение Наты 07.11.2026) — цвета только из
+     брендбука или одобренные Натой лично.
+     Акценты страниц (МЕНЮ, решение Наты 07.11.2026): главная — желтый,
+     акции — желтый, флоатинг — лаванда, спа для волос — лаванда
+     (одинаково с флоатингом — так велела Ната),
+     контакты — ментол, правовая — лаванда; остальные (не в меню) — коралл,
+     этикет — желтый. */
+  --coral: #f19985;        /* коралл (роз) */
+  --coral-light: #fde8e3;
+  --yellow: #fcc078;       /* желтый */
+  --yellow-light: #fef3e0;
+  --menthol: #83d6d6;      /* ментол (акцент страницы акций) */
+  --menthol-light: #d6f0f0;
+  --mint: #89b3e7;         /* лаванда (голубой) */
+  --mint-light: #d4e5f7;
+  --float-blue: #7ec8e3;   /* акцент страницы флоатинга — как в чатиум-версии */
+  --chocolate: #433b30;    /* шоколад — основной текст (брендбук) */
+  --chocolate-deep: #3d2d22; /* второй шоколад брендбука: подвал, оверлеи */
+  /* Цвет заголовков — теплый шоколад из чатиум-версии, тот же, что заливка
+     кнопки «Записаться» в шапке (#69513f). Применяется ТОЛЬКО к заголовкам,
+     обычный текст остается темным (#433b30). */
+  --heading-color: #69513f;
+  --cocoa: #8b7667;        /* какао — подписи, крошки */
+  --text-secondary: #515151; /* серый текст — абзацы */
+  --text-light: #8b7667;   /* подписи/мета = какао */
+  --bg-page: #ffffff;      /* фон страниц — белый, как в чатиум-версии */
+  --bg-card: #ffffff;
+  --accent: var(--coral);  /* каждой странице задается свой акцент */
+  /* Сливочный текст на шоколаде (тот же тон уже используется в подвале).
+     Применяется ТОЛЬКО на темно-шоколадных зонах — обычный белый
+     фон не меняет. */
+  --cream: #ece2d7;
+
+  --shadow-card: 0 8px 26px rgba(105, 81, 63, 0.10);
+  --radius-card: 20px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Roboto Condensed', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 300;
+  background: var(--bg-page);
+  color: var(--chocolate);
+  margin: 0;
+  line-height: 1.5; /* интерлиньяж: расстояние между строками текста */
+}
+h1, h2, h3, h4 {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--heading-color);
+}
+.font-accent { font-family: 'Lora', Georgia, serif; font-style: italic; }
+.accent      { color: var(--accent); }
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: inline-block; padding: 13px 34px; border-radius: 50px;
+  font-family: 'Roboto Condensed', sans-serif; font-weight: 400;
+  font-size: 16px; letter-spacing: 0.05em; cursor: pointer;
+  border: none; text-decoration: none; transition: all 0.25s ease;
+}
+/* Кнопки как в чатиум-версии: заливка = акцент страницы, текст белый,
+   при наведении — шоколадный. color-mix — смешивание цветов в браузере. */
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 15px color-mix(in srgb, var(--accent) 25%, transparent); border: 2px solid var(--accent); }
+.btn-primary:hover {
+  background: transparent; color: var(--accent);
+  transform: translateY(-2px); box-shadow: none;
+}
+.btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.btn-ghost:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+.btn-white { background: #fff; color: var(--chocolate); }
+.btn-white:hover { background: var(--yellow); color: var(--chocolate); transform: translateY(-2px); }
+
+/* Строка из нескольких кнопок (герой Главной и Флоатинга):
+   промежуток между кнопками 12px; если на узком экране кнопка
+   переносится на новую строку — она выравнивается ровно по левому краю */
+.btn-row {
+  display: flex; flex-wrap: wrap; gap: 20px; align-items: center;
+}
+/* На планшете/телефоне герой центрируется целиком — кнопки тоже,
+   иначе текст по центру, а кнопки прилипают влево */
+@media (max-width: 1150px) {
+  .btn-row { justify-content: center; }
+}
+
+/* ============================================================
+   Шапка — стили и размеры из чатиум-версии (AppHeader.vue)
+   ============================================================ */
+
+/* Рукописный шрифт названия «СтудиоСпа» — тот же файл TTF, что в Чатиуме */
+@font-face {
+  font-family: 'Rosa Marena';
+  src: url('../img/rosa-marena.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+.site-header {
+  /* Переменные шапки — точно из исходников чатиум-версии */
+  --hdr-chocolate: #69513f;
+  --hdr-text-secondary: #7a6a5a;
+  --hdr-text-light: #a89b90;
+  --hdr-caramel: #c4956a;
+
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 255, 255, 0.88);
+  /* blur — легкое размытие фона шапки поверх страницы */
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(105, 81, 63, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom-color: rgba(105, 81, 63, 0.15);
+  box-shadow: 0 4px 30px rgba(105, 81, 63, 0.06);
+}
+
+/* Строка логотипа: знак + название + подпись, все по центру */
+.hdr-logo-row { padding: 0.8rem 0 0.3rem; text-align: center; transition: padding 0.4s ease; }
+.hdr-logo { display: inline-flex; flex-direction: column; align-items: center; gap: 0.15rem; text-decoration: none; }
+.hdr-logo-mark { width: 80px; height: auto; display: block; transition: width 0.4s ease; }
+.hdr-logo-title {
+  font-family: 'Rosa Marena', 'Palace Script MT', 'Brush Script MT', cursive;
+  font-size: 3.3rem; line-height: 1.1; font-weight: 400;
+  letter-spacing: 0.04em; color: var(--hdr-chocolate);
+  transition: font-size 0.4s ease;
+}
+.hdr-logo-sub {
+  font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--hdr-text-light);
+  /* Опущена ниже, чтобы не пряталась под «хвосты» рукописных У и Д */
+  margin-top: 0.35rem;
+  transition: font-size 0.4s ease;
+}
+/* При прокрутке шапка «сжимается»: знак меньше, надпись мельче */
+.site-header.is-scrolled .hdr-logo-row { padding: 0.4rem 0 0.2rem; }
+.site-header.is-scrolled .hdr-logo-mark { width: 60px; }
+.site-header.is-scrolled .hdr-logo-title { font-size: 2rem; }
+.site-header.is-scrolled .hdr-logo-sub { font-size: 0.5rem; }
+
+/* Разделитель между логотипом и меню — мягкая «тающая» линия */
+.hdr-sep {
+  height: 1px; margin: 0 1rem;
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(105, 81, 63, 0.08) 20%,
+    rgba(105, 81, 63, 0.15) 50%,
+    rgba(105, 81, 63, 0.08) 80%, transparent 100%);
+}
+
+/* Строка меню */
+.hdr-nav-row { padding: 0.45rem 1rem; }
+.hdr-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.3rem; flex-wrap: wrap;
+}
+
+/* Значок ВКонтакте — темный квадратик с белыми буквами, как на скрине */
+.hdr-vk {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--hdr-chocolate); color: #fff;
+  font: 600 12px/1 'Roboto Condensed', sans-serif; text-decoration: none;
+  margin-right: 0.5rem; flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.hdr-vk:hover { background: var(--accent); transform: translateY(-1px); }
+
+.hdr-nav { display: flex; align-items: center; gap: 0.1rem; flex-wrap: wrap; justify-content: center; }
+.hdr-nav a {
+  color: var(--hdr-text-secondary);
+  font-size: 0.75rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.35rem 0.65rem; border-radius: 6px;
+  text-decoration: none; white-space: nowrap;
+  transition: all 0.25s ease;
+}
+.hdr-nav a:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.hdr-nav a.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+
+/* Телефон с иконкой трубки */
+.hdr-phone {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--hdr-text-secondary); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.02em; padding: 0.35rem 0.65rem; border-radius: 6px;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.hdr-phone svg { width: 12px; height: 12px; color: var(--hdr-caramel); transition: color 0.25s ease; }
+.hdr-phone:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.hdr-phone:hover svg { color: var(--accent); }
+
+/* Кнопка «Записаться» — таблетка в цвет страниц: заливка = акцент страницы
+   (лаванда на Флоатинге, ментол на Акциях и т.д.). При наведении заливка
+   исчезает — остается только акцентная обводка и текст в акцент. */
+.hdr-book {
+  display: inline-flex; align-items: center;
+  background: var(--accent); color: #fff;
+  /* рамка всегда 2px (прозрачная до наведения), поэтому отступы ужаты
+     на 2px — размер кнопки не меняется при наведении */
+  border: 2px solid var(--accent);
+  padding: calc(0.45rem - 2px) calc(1.2rem - 2px); border-radius: 50px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em;
+  text-decoration: none; margin-left: 0.8rem; white-space: nowrap; flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.hdr-book:hover {
+  background: transparent; color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Ссылка «Поиск» с лупой */
+.hdr-search {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--hdr-text-light); font-size: 0.75rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.35rem 0.65rem; border-radius: 6px; text-decoration: none;
+  margin-right: 0.3rem; flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.hdr-search svg { width: 13px; height: 13px; }
+.hdr-search:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+/* Блок мобильной шапки — на обычном экране скрыт */
+.hdr-mobile { display: none; }
+
+/* ---------- Подвал ---------- */
+/* Фирменный орнамент (спирали и волны) — фоном всего подвала.
+   Подвал «отогрели» до шоколада брендбука #3d2d22 (был почти черный
+   #1e160f) — по пожеланию владельца сайт в целом темнее. */
+.site-footer {
+  background:
+    linear-gradient(rgba(61, 45, 34, 0.72), rgba(61, 45, 34, 0.72)),
+    url('../img/pattern.png') center / 560px auto;
+  background-color: #3d2d22;
+  color: #ece2d7; margin-top: 80px;
+}
+/* Единый бледно-желтый текст во всех колонках подвала — как в «Ваш личный оазис…» */
+.site-footer a { color: #ece2d7; }
+.footer-inner {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 48px; width: 100%; max-width: 1100px;
+  padding-top: 56px; padding-bottom: 40px;
+}
+/* Боковые колонки с фиксированной шириной — «Навигация» встает по центру между ними */
+.footer-inner > div:first-child { max-width: 340px; }
+.footer-contacts { max-width: 380px; }
+/* Значок-треугольник с подписью в левой колонке — как в шапке */
+.footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.footer-logo img { height: 52px; width: auto; }
+/* Название рукописным шрифтом Rosa Marena — как в шапке сайта */
+.footer-logo-title {
+  display: block; font-family: 'Rosa Marena', 'Palace Script MT', 'Brush Script MT', cursive;
+  font-size: 34px; line-height: 1.1; font-weight: 400; letter-spacing: 0.04em; color: #ece2d7;
+}
+.footer-logo-sub {
+  display: block; font-family: 'Roboto Condensed', sans-serif; font-size: 12px;
+  letter-spacing: 0.25em; text-transform: uppercase; color: #ece2d7;
+  /* Опущена ниже, чтобы не пряталась под «хвосты» рукописных У и Д */
+  margin-top: 0.35rem;
+}
+/* Кнопки соцсетей: круглые бейджи VK и MAX */
+.footer-social { display: flex; gap: 12px; margin: 18px 0; }
+.footer-social-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 56px; height: 36px; padding: 0 16px;
+  border-radius: 999px; background: rgba(255,255,255,0.1);
+  color: #ece2d7; font-weight: 600; font-size: 14px; letter-spacing: 0.04em;
+  transition: background 0.2s ease;
+}
+.footer-social-btn:hover { background: var(--yellow); color: var(--chocolate-deep); }
+.footer-legal { font-size: 13px; color: #ece2d7; margin: 0 0 6px; }
+.footer-note { font-size: 13px; color: #ece2d7; margin: 0; }
+.footer-inner h3 { color: #ece2d7; font-size: 18px; margin: 0 0 14px; }
+.footer-contacts p { margin: 6px 0; }
+/* Тонкие значки в строках контактов: выравнивание по тексту, цвет как у текста */
+.footer-contacts svg {
+  width: 15px; height: 15px; vertical-align: -0.18em;
+  margin-right: 8px; opacity: 0.85;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 1100px;
+  /* Размер как у основного текста подвала (по пожеланию владельца) */
+  padding: 18px 24px; font-size: 16px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+/* Удобная зона 900–1150px: три колонки уже не расходятся свободно, но в столбик
+   складываться рано. Слегка ужимаем их и промежутки — тогда «Навигация» остается
+   по центру, а «Контакты» не убегают на новую строку. */
+@media (max-width: 1150px) {
+  .footer-inner { gap: 32px; }
+  .footer-inner > div:first-child { max-width: 300px; }
+  .footer-contacts { max-width: 340px; }
+}
+
+/* ---------- СПА-меню (страница «Услуги и цены») ----------
+   Карточки разделов с картинками оригинального сайта: клик прокручивает
+   к нужному разделу каталога. Сетка сама раскладывает карточки в ряд. */
+.menu-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 22px; margin-bottom: 40px;
+}
+.menu-card { display: flex; flex-direction: column; align-items: center; gap: 16px; text-decoration: none; }
+.menu-card img {
+  width: 100%; border-radius: 16px; box-shadow: var(--shadow-card);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.menu-card:hover img { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(30, 20, 12, 0.2); }
+.menu-btn { padding: 10px 30px; font-size: 14px; }
+/* Плита-заглушка для раздела «Спа для волос», пока нет прайса */
+.menu-soon-plate {
+  width: 100%; aspect-ratio: 250 / 210; border-radius: 16px;
+  background: linear-gradient(180deg, #433b30, #3d2d22);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 8px; text-align: center; padding: 22px;
+}
+.menu-soon-plate h3 { color: #fff; font-size: 19px; margin: 0; text-transform: uppercase; letter-spacing: 0.08em; }
+.menu-soon-plate p { color: var(--cream); opacity: 0.85; font-size: 13px; margin: 0; line-height: 1.45; }
+
+/* ---------- Кнопки-вкладки разделов (референс владельца) ----------
+   Полоса пилюль с иконками: на странице «Услуги и цены» и на каждой
+   странице-разделе. Активная вкладка текущего раздела залита акцентом. */
+.cat-tabs {
+  /* Две полосы кнопок (5 + 3): строки идут одна под другой,
+     каждая выравнивается по центру независимо от своей ширины */
+  display: flex; flex-direction: column;
+  gap: 10px; margin: 0 auto 6px;
+}
+/* Строка вкладок: на узких экранах кнопки переносятся свободно */
+.cat-tab-row {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px 12px;
+}
+.cat-tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 20px; border-radius: 50px;
+  border: 1.5px solid rgba(105, 81, 63, 0.32); background: #fff;
+  color: var(--chocolate); text-decoration: none;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14.5px; font-weight: 500; letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: transform 0.25s ease, background 0.25s ease,
+              border-color 0.25s ease, color 0.25s ease;
+}
+.cat-tab svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+.cat-tab:hover {
+  border-color: var(--accent); color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, white);
+  transform: translateY(-2px);
+}
+.cat-tab.is-active {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.cat-tab.is-active svg { color: #fff; }
+/* На телефоне пилюли компактнее — больше помещается в строку */
+@media (max-width: 600px) {
+  .cat-tab { padding: 8px 14px; font-size: 13.5px; gap: 6px; }
+  .cat-tab svg { width: 14px; height: 14px; }
+}
+/* Строки с ценами абонементов (страница Абонементы и депозиты):
+   чуть заметнее, чем обычные пункты списка */
+.srv-includes.rv-price-lines li { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Абонементы: выделенная полоса под СПА-меню */
+.abon-band {
+  display: flex; gap: 22px; align-items: center;
+  background: linear-gradient(180deg, #433b30, #3d2d22);
+  border-radius: 20px; padding: 26px 32px; color: var(--cream);
+}
+.abon-band h3 { color: #fff; margin: 0 0 6px; font-size: 20px; }
+.abon-band p { margin: 0; font-size: 14px; line-height: 1.55; opacity: 0.9; }
+.abon-icon {
+  width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--yellow) 18%, transparent); color: var(--yellow);
+}
+.abon-icon svg { width: 26px; height: 26px; }
+
+/* Под-заголовки внутри раздела («Доп. услуги», «Парные» и т.д.) */
+.sub-head {
+  display: flex; align-items: center; gap: 16px;
+  margin: 34px 0 14px; font-family: 'Roboto Condensed', sans-serif;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--heading-color);
+}
+.sub-head::after { content: ''; flex: 1; height: 1px; background: rgba(105, 81, 63, 0.14); }
+
+/* Дорога с якорем: учитываем липкую шапку при прыжке по СПА-меню */
+.cat-head[id] { scroll-margin-top: 120px; }
+
+/* ---------- Секции ---------- */
+section { padding: 64px 0; }
+.section-title { font-size: 40px; text-align: center; margin: 0 0 8px; }
+.section-sub {
+  font-family: 'Lora', serif; font-style: italic;
+  color: var(--text-light); text-align: center; margin: 0 0 40px;
+}
+
+/* ---------- Карточки ---------- */
+.card {
+  background: var(--bg-card); border-radius: var(--radius-card);
+  border: 1px solid rgba(105, 81, 63, 0.12); padding: 28px; position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(105, 81, 63, 0.08); border-color: rgba(105, 81, 63, 0.2); }
+
+/* Бейджи как в чатиум-версии: легкая подложка акцента + текст акцентом */
+.badge {
+  display: inline-block; padding: 5px 14px; border-radius: 20px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--accent);
+  font-size: 13px; font-weight: 500;
+}
+.badge-promo { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+
+/* ---------- Герой ----------
+   Шоколадный герой (пожелание владельца — темнее, в шоколадных
+   оттенках): шоколад брендбука + фирменный орнамент из подвала,
+   текст сливочный, заголовок белый, акцент страницы (на Главной —
+   желтый) выделяется сам. Орнамент виден сквозь тонировку и снимает
+   эффект «плоского» цвета. */
+.hero {
+  background:
+    linear-gradient(rgba(61, 45, 34, 0.88), rgba(61, 45, 34, 0.88)),
+    url('../img/pattern.png') center / 480px auto;
+  background-color: #3d2d22;
+  position: relative; overflow: hidden;
+}
+.hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 1; }
+.hero h1 { font-size: 54px; line-height: 1.15; margin: 0 0 20px; color: #fff; }
+.hero p.lead { font-size: 19px; color: var(--cream); max-width: 520px; }
+/* Крошки и бейдж на шоколадном фоне: сливочный вместо какао */
+.hero .breadcrumbs, .hero .breadcrumbs a { color: var(--cream); opacity: 0.85; }
+.hero-photo { border-radius: 28px; box-shadow: 0 16px 44px rgba(20, 14, 9, 0.45); width: 100%; height: 560px; object-fit: cover; object-position: 62% 30%; }
+
+/* Темно-шоколадная полоса (блок «Популярные процедуры» на Главной,
+   «Наши партнеры»): тот же шоколад, что у героя, а карточки остаются
+   белыми — контраст и заодно «отгул» секциям-полосам. */
+.band-dark { background: #3d2d22; }
+.band-dark .section-title { color: #fff; }
+.band-dark .section-sub { color: var(--cream); opacity: 0.75; }
+
+/* ---------- Списки услуг (каталог, как в чатиум-версии) ----------
+   Заголовок категории с круглой иконкой и подзаголовком; все услуги
+   категории — в одной белой карточке, между собой разделены линией;
+   каждая строка целиком — ссылка на страницу услуги. */
+.cat-head { display: flex; gap: 20px; align-items: center; margin: 44px 0 20px; }
+.cat-icon {
+  width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+  background: #fff; border: 1px solid rgba(105, 81, 63, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); box-shadow: 0 4px 20px rgba(105, 81, 63, 0.06);
+}
+.cat-icon svg { width: 26px; height: 26px; }
+.cat-head h2 { font-family: 'Lora', serif; font-size: 27px; margin: 0; color: var(--chocolate); text-transform: uppercase; letter-spacing: 0.04em; }
+.cat-sub { margin: 5px 0 0; font-size: 14px; color: var(--text-light); }
+
+.cat-block {
+  background: #fff; border-radius: 16px; padding: 20px 24px;
+  border: 1px solid rgba(105, 81, 63, 0.08);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.cat-block:hover { border-color: rgba(105, 81, 63, 0.15); box-shadow: 0 4px 20px rgba(105, 81, 63, 0.04); }
+
+.srv-row {
+  display: block; position: relative; padding: 18px 0;
+  border-bottom: 1px solid rgba(105, 81, 63, 0.1);
+  text-decoration: none; color: inherit;
+  /* Мягкий переход: фон и сдвиг отступов анимируются плавно, а не скачком */
+  transition: background .45s ease, padding .45s ease; border-radius: 8px;
+}
+.srv-row:first-child { padding-top: 4px; }
+.srv-row:last-child { border-bottom: none; padding-bottom: 4px; }
+.srv-row:hover { background: rgba(241, 153, 133, 0.05); padding-left: 14px; padding-right: 34px; }
+.srv-row-main { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
+.srv-info { flex: 1; min-width: 0; }
+.srv-subtitle {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 4px;
+}
+.srv-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.srv-name {
+  font-family: 'Roboto Condensed', sans-serif; font-weight: 500; font-size: 17px;
+  color: var(--chocolate); line-height: 1.3; transition: color .45s ease;
+}
+.srv-row:hover .srv-name { color: var(--accent); }
+.srv-row .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 10px; border-radius: 50px; }
+.srv-desc { font-size: 14px; color: var(--text-secondary); font-weight: 300; line-height: 1.5; margin: 5px 0 0; }
+/* Логические части описания (текст / зона воздействия / цены) —
+   каждая своим блоком, между ними воздух */
+.desc-b { display: block; white-space: pre-line; }
+.desc-b + .desc-b { margin-top: 10px; }
+.srv-includes { margin-top: 12px; display: flex; flex-direction: column; gap: 2px; list-style: none; padding: 0; margin-bottom: 0; }
+.srv-includes li { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--text-secondary); font-weight: 300; line-height: 1.4; }
+.srv-includes li::before { content: '›'; color: var(--accent); font-size: 12px; flex-shrink: 0; }
+/* строки-заголовки («Гость 1/2») и финальные примечания — без маркера списка */
+/* «note» = финальный совместный блок («По окончании…», «Совместный отдых…») */
+.srv-includes li.head::before, .srv-includes li.note::before { content: none; }
+.srv-includes li.head, .srv-includes li.note { padding-left: 18px; }
+.srv-includes li.head { color: var(--text); font-weight: 600; margin-top: 8px; }
+.srv-meta { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 13px; color: var(--text-light); }
+.srv-meta svg { width: 13px; height: 13px; }
+/* Цены — всегда правая колонка, ровно по правому краю */
+.srv-price-col { text-align: right; flex-shrink: 0; min-width: 100px; }
+.srv-prices-stacked { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.srv-price {
+  font-family: 'Lora', serif; font-size: 22px; font-weight: 700;
+  color: var(--accent); white-space: nowrap; line-height: 1.2;
+}
+.srv-old-price { font-size: 13px; color: var(--text-light); text-decoration: line-through; margin-top: 2px; }
+/* Стрелка «открыть» появляется справа при наведении */
+.srv-arrow {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--accent); font-size: 13px; opacity: 0; transition: opacity .45s ease;
+}
+.srv-row:hover .srv-arrow { opacity: .6; }
+
+/* ---------- Флоатинг-карточка и «Аренда СПА» (как в чатиум-версии) ----------
+   Флоатинг — карточка-ссылка на одноименную страницу; Аренда СПА —
+   информационный блок с телефоном. У чатиум-версии тот же расклад:
+   круглая иконка слева, текст справа. */
+.float-card, .rental-card { display: block; border-radius: 20px; margin-top: 40px; overflow: hidden; }
+.float-card {
+  border: 1px solid rgba(137, 179, 231, 0.25); color: inherit; text-decoration: none;
+  transition: border-color .4s ease, box-shadow .4s ease, transform .4s ease;
+}
+.float-card:hover {
+  border-color: rgba(137, 179, 231, 0.6);
+  box-shadow: 0 12px 40px rgba(137, 179, 231, 0.2);
+  transform: translateY(-3px);
+}
+.rental-card {
+  border: 1px solid rgba(105, 81, 63, 0.18);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.rental-card:hover { border-color: rgba(105, 81, 63, 0.35); box-shadow: 0 8px 30px rgba(105, 81, 63, 0.1); }
+.float-card-inner { display: flex; gap: 24px; align-items: center; padding: 32px 36px; }
+.float-icon {
+  width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent);
+}
+.float-icon svg { width: 26px; height: 26px; }
+.float-content { flex: 1; min-width: 0; }
+.float-content h3 {
+  font-family: 'Lora', serif; font-size: 26px; font-weight: 600; color: var(--heading-color);
+  margin: 0 0 6px;
+}
+.float-desc { font-size: 15px; color: var(--text-secondary); font-weight: 300; line-height: 1.5; margin: 0 0 10px; }
+.float-link {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500;
+  color: var(--accent); text-transform: uppercase; letter-spacing: .06em;
+  transition: gap .3s ease;
+}
+.float-card:hover .float-link { gap: 12px; }
+.float-arrow { font-size: 13px; transition: transform .3s ease; }
+.float-card:hover .float-arrow { transform: translateX(3px); }
+/* Блок аренды: подзаголовок и телефон */
+.float-sub { font-size: 14px; color: var(--cocoa); margin: 0 0 6px; }
+.float-phone {
+  display: inline-block; font-family: 'Lora', serif; font-size: 26px; font-weight: 700;
+  color: var(--heading-color); text-decoration: none;
+  border-bottom: 2px solid transparent; transition: color .25s ease, border-color .25s ease;
+}
+.float-phone:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- Форма ---------- */
+.form-input {
+  width: 100%; padding: 13px 18px; border: 1.5px solid #e3d5c9; border-radius: 12px;
+  font-family: inherit; font-size: 15px; background: #fff; color: var(--chocolate);
+}
+.form-input:focus { outline: none; border-color: var(--accent); }
+
+/* ---------- Страница поиска ----------
+   Подсказки-кнопки под формой: один клик — и поиск уже запущен,
+   не нужно угадывать слово. */
+.search-chips {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; align-items: center;
+  margin-top: 18px;
+}
+.search-chips .chips-label { font-size: 14px; color: var(--text-light); }
+.search-chip {
+  padding: 7px 18px; border-radius: 50px; cursor: pointer;
+  border: 1.5px solid rgba(105, 81, 63, 0.22); background: #fff;
+  color: var(--chocolate); font-family: inherit; font-size: 14px;
+  transition: all 0.25s ease;
+}
+.search-chip:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* Подпись раздела в найденной услуге — чтобы было видно, где искать в каталоге */
+.search-cat {
+  display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+
+/* ---------- Цитата на фирменном паттерне ---------- */
+.quote-band {
+  background:
+    linear-gradient(rgba(61, 45, 34, 0.8), rgba(61, 45, 34, 0.8)),
+    url('../img/pattern.png') center / 480px auto;
+  color: #fff;
+  text-align: center;
+}
+
+/* ---------- Акция «Счастливые часы» — карточка с фото слева, как в чатиум-версии ----------
+   Карточка отогрета до шоколада брендбука; текст сливочный, заголовок
+   белый, акцент страницы (желтый на Главной, лаванда на Флоатинге)
+   выделяется сам. */
+.promo-band {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: #fff3e5;
+  border: 1px solid rgba(105, 81, 63, 0.28);
+  border-radius: 28px;
+  padding: 40px;
+}
+.promo-band-photo {
+  width: 280px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(20, 14, 9, 0.4);
+  object-fit: cover;
+}
+.promo-band-body { flex: 1; }
+/* Плашка-значок: сплошной акцент + белый текст — читается на светлой карточке */
+.promo-band-body > span {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  background: var(--accent);
+  color: #fff;
+  margin-bottom: 16px;
+}
+/* Светлая карточка: заголовок и текст — темные по светлому крему */
+.promo-band-body h2 { margin: 0 0 14px; font-size: 30px; color: var(--chocolate); }
+.promo-band-body p { color: var(--text-secondary); margin: 0 0 24px; max-width: 560px; line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .promo-band { flex-direction: column; padding: 26px; text-align: center; }
+  .promo-band-photo { width: 100%; max-width: 320px; }
+  .promo-band-body p { margin-left: auto; margin-right: auto; }
+}
+
+/* ---------- Польза флоатинга: иконка + текст в одной линии ---------- */
+.benefit-row { display: flex; gap: 16px; align-items: flex-start; }
+.benefit-row h3 { margin: 0 0 4px; font-size: 18px; font-weight: 600; color: var(--heading-color); }
+.benefit-row p { margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 1.5; }
+/* Тонкая линейная иконка в кружке с акцентной заливкой 10% */
+.benefit-icon {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+.benefit-icon svg { width: 22px; height: 22px; }
+
+/* ---------- FAQ: раскрывающиеся вопросы (details/summary) ---------- */
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  border: 1px solid rgba(105, 81, 63, 0.12);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 18px 22px;
+  font-family: 'Lora', serif; font-size: 17px; font-weight: 600;
+  color: var(--heading-color);
+  transition: color .3s ease;
+}
+.faq-item summary:hover { color: var(--accent); }
+.faq-item summary::-webkit-details-marker { display: none; }
+/* Плюс справа; в открытом виде поворачивается в крестик */
+.faq-item summary::after {
+  content: '+'; font-size: 24px; font-weight: 300; line-height: 1;
+  color: var(--accent); flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { margin: 0; padding: 0 22px 18px; color: var(--text-secondary); font-size: 15px; line-height: 1.55; }
+
+/* ---------- Адаптив страницы флоатинга: блоки по центру ----------
+   Все правила привязаны к body[data-page="floating.html"],
+   чтобы не влиять на Главную и другие страницы. */
+
+/* Средние экраны (планшет, до 1150px): герой и акция — текст по центру */
+@media (max-width: 1150px) {
+  body[data-page="floating.html"] .hero-grid { text-align: center; }
+  body[data-page="floating.html"] .promo-band-body { text-align: center; }
+  body[data-page="floating.html"] .promo-band { justify-content: center; }
+  /* Видео-блок: само видео шире текста, блочный элемент центруется через отступы */
+  body[data-page="floating.html"] .float-video video { margin-left: auto; margin-right: auto; }
+  /* Польза: иконка над текстом, по центру — начинаем уже на планшете */
+  body[data-page="floating.html"] .benefit-row {
+    flex-direction: column-reverse; align-items: center; gap: 12px; text-align: center;
+  }
+  body[data-page="floating.html"] .benefit-icon { margin: 0 auto; }
+}
+
+/* Узкие экраны (телефон, до 900px): все блоки в колонку и по центру */
+@media (max-width: 900px) {
+  /* Польза: иконка над текстом, все по центру */
+  body[data-page="floating.html"] .benefit-row {
+    flex-direction: column-reverse; align-items: center; gap: 12px; text-align: center;
+  }
+  body[data-page="floating.html"] .benefit-icon { margin: 0 auto; }
+  /* Заголовок героя на телефоне: сжимается (размер задан инлайн) */
+  body[data-page="floating.html"] .hero-grid h1 { font-size: 30px !important; }
+  /* Карточки цен: название над ценой, текст и стрелка по центру */
+  body[data-page="floating.html"] .float-price .fp-head {
+    flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  }
+  body[data-page="floating.html"] .float-price .fp-cta { text-align: center; }
+  /* Противопоказания: одна колонка, плашки по центру */
+  body[data-page="floating.html"] #float-contras { grid-template-columns: 1fr !important; }
+  body[data-page="floating.html"] #float-contras .card { text-align: center; }
+  /* Призыв «Готовы испытать»: заголовок и слово чуть меньше */
+  body[data-page="floating.html"] .float-cta h2 { font-size: 26px !important; }
+  body[data-page="floating.html"] .float-cta h2 .font-accent { font-size: 34px !important; }
+  /* FAQ: чуть компактнее */
+  body[data-page="floating.html"] .faq-item summary { padding: 15px 18px; font-size: 16px; }
+  body[data-page="floating.html"] .faq-item p { padding: 0 18px 15px; }
+}
+
+/* Акции: на средних и узких экранах содержимое карточек — по центру */
+@media (max-width: 1150px) {
+  body[data-page="promotions.html"] .duo-grid .card {
+    text-align: center;
+  }
+}
+
+/* Акции, до 900px: карточки в одну колонку, все по центру */
+@media (max-width: 900px) {
+  body[data-page="promotions.html"] .duo-grid .card {
+    text-align: center;
+  }
+  body[data-page="promotions.html"] .duo-grid .card .badge { margin: 0 auto; }
+}
+
+/* ---------- СПА-этикет ----------
+   Заголовок раздела: тонкая иконка в акцентной рамке + название */
+.etq-head { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+.etq-icon {
+  width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent);
+}
+.etq-icon svg { width: 24px; height: 24px; }
+
+/* Средние экраны (до 1150px): шапки разделов — по центру */
+@media (max-width: 1150px) {
+  body[data-page="etiquette.html"] .etq-head {
+    flex-direction: column; justify-content: center; gap: 10px; text-align: center;
+  }
+}
+
+/* Узкие экраны (до 900px): все содержимое карточек — по центру */
+@media (max-width: 900px) {
+  body[data-page="etiquette.html"] .card { text-align: center; }
+  body[data-page="etiquette.html"] .card ul { display: inline-block; text-align: left; padding-left: 22px; }
+}
+
+/* ---------- Партнеры и поставщики (шоколадная полоса) ----------
+   Логотипы поставщиков — белые на прозрачном фоне, поэтому им нужен
+   темный фон; на шоколаде они читаются без перекрашивания. */
+.partners-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+.partner-cell {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(236, 226, 215, 0.14);
+  border-radius: 14px; height: 92px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px 22px;
+}
+.partner-cell img {
+  max-height: 46px; width: auto; opacity: 0.92;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.partner-cell img:hover { opacity: 1; transform: scale(1.04); }
+/* Плашка «вместо логотипа» — имя бренда фирменным шрифтом Лора */
+.partner-name {
+  font-family: 'Lora', serif; font-size: 22px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--cream); text-align: center; line-height: 1.3;
+}
+.partner-name small {
+  display: block; font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11.5px; font-weight: 300; letter-spacing: 0.05em;
+  text-transform: none; color: var(--cream); opacity: 0.75; margin-top: 5px;
+}
+
+/* ---------- Кнопка «наверх» ----------
+   Плавающий круг у правого края: полупрозрачна и скрыта,
+   пока страницу не прокрутили вниз. */
+.scroll-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 250;
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--chocolate); color: #fff;
+  box-shadow: 0 8px 24px rgba(30, 20, 12, 0.28);
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background 0.25s ease;
+}
+.scroll-top.show { opacity: 1; visibility: visible; transform: none; }
+.scroll-top:hover { background: var(--accent); }
+.scroll-top svg { width: 22px; height: 22px; }
+
+/* ---------- Cookie-плашка ---------- */
+.cookie-banner {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 300;
+  max-width: 960px; margin: 0 auto;
+  display: none; align-items: center; gap: 18px; flex-wrap: wrap;
+  background: var(--chocolate); color: #ece2d7;
+  border-radius: 16px; padding: 16px 24px;
+  box-shadow: 0 12px 40px rgba(30, 20, 12, 0.45);
+}
+.cookie-banner.show { display: flex; }
+.cookie-banner p { margin: 0; font-size: 14px; flex: 1; min-width: 260px; }
+.cookie-banner a { color: var(--yellow); }
+
+/* ---------- Плавное появление при прокрутке ---------- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ---------- Хлебные крошки ---------- */
+.breadcrumbs { font-size: 14px; color: var(--text-light); padding: 18px 0 0; }
+.breadcrumbs a { color: var(--text-light); }
+
+/* ---------- Сетки страниц (перенос колонок на мобильном) ---------- */
+/* Иконка выгоды — в круге с легким тонированием акцентом (как в Чатиуме) */
+.why-icon {
+  width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.why-icon svg { width: 26px; height: 26px; color: var(--accent); }
+/* Карточки «Почему выбирают нас» — как в чатиум-версии:
+   сетка 2×2, карточки широкие, поэтому текст всегда в одну строку.
+   Сетка сама растягивает все карточки в ряду до одной высоты. */
+.why-card {
+  text-align: center; padding: 44px 28px;
+  /* Верхняя акцентная полоска — как на карточках акций:
+     4px линия в цвет акцента страницы по всей ширине карточки */
+  border-top: 4px solid var(--accent);
+}
+.why-title {
+  font-size: 21px; line-height: 1.3; margin: 0 0 12px;
+  color: var(--heading-color);
+}
+.why-desc {
+  color: #7a6a5a; margin: 0; font-size: 15px; line-height: 1.5;
+}
+.why-grid      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.popular-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+/* Карточки «Популярных процедур»: у всех карточек название занимает ровно
+   две строки, описание — ровно две, за счет этого карточки одной высоты
+   и текст не «скачет» при просмотре. line-clamp — обрезка текста
+   по числу строк с «…» в конце, если текст длиннее. */
+.pop-card { display: flex; flex-direction: column; padding: 24px; }
+.pop-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.pop-title {
+  font-size: 19px; line-height: 1.3; margin: 0 0 8px;
+  /* Фиксированная высота = ровно две строки (min-height тут игнорируется браузером) */
+  height: calc(2 * 1.3em);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.pop-price { color: var(--accent); font-family: 'Lora', serif; font-weight: 600; white-space: nowrap; }
+.pop-desc {
+  color: var(--text-secondary); margin: 0; font-size: 15px; line-height: 1.5;
+  /* Фиксированная высота = ровно две строки описания */
+  height: calc(2 * 1.5em);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.trio-grid     { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.duo-grid      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.legal-grid    { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: start; }
+.about-grid    { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; align-items: center; }
+/* Блок «О салоне»: фото занимает обе строки левой колонки,
+   заголовок и описание — правой колонке (как было, но тремя блоками,
+   чтобы на телефоне фото встало между заголовком и описанием) */
+.about-photo     { border-radius: 28px; overflow: hidden; height: 440px;
+                   grid-area: 1 / 1 / 3 / 2; }
+.about-photo img { width: 100%; height: 100%; object-fit: cover;
+                   transform: scale(1.15); transform-origin: 100% 50%; }
+.about-text-head { grid-area: 1 / 2; }
+.about-text-body { grid-area: 2 / 2; }
+.contacts-grid { display: grid; grid-template-columns: 380px 1fr; gap: 30px; align-items: start; }
+.detail-grid   { display: flex; gap: 30px; flex-wrap: wrap; }
+.detail-grid > div:first-child { flex: 2; min-width: 280px; }
+.detail-grid .price-box { flex: 1; min-width: 240px; }
+
+/* ---------- Мобильная версия ---------- */
+@media (max-width: 900px) {
+  .hero h1 { font-size: 34px; }
+  .hero-photo { height: 320px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 28px; }
+  /* ---------- Мобильная шапка (как в чатиум-версии) ---------- */
+  .hdr-logo-row, .hdr-sep, .hdr-nav-row { display: none; }
+  .hdr-mobile { display: block; }
+  .hdr-mobile-bar { padding: 0.7rem 1.2rem 0.5rem; }
+  .hdr-mobile-row { display: flex; align-items: center; justify-content: space-between; }
+  .hdr-mobile-logo img { width: 54px; height: auto; display: block; }
+  .hdr-mobile-actions { display: flex; align-items: center; gap: 0.3rem; }
+  .hdr-mobile-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    color: var(--hdr-text-light); text-decoration: none;
+  }
+  .hdr-mobile-icon svg { width: 18px; height: 18px; }
+  .hdr-mobile-icon:active { color: var(--accent); }
+
+  /* Бургер: три полоски, при открытой менюшке превращаются в крестик */
+  .hdr-burger {
+    display: flex; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .hdr-burger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--hdr-chocolate); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hdr-burger.is-active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hdr-burger.is-active span:nth-child(2) { opacity: 0; }
+  .hdr-burger.is-active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* Большая рукописная надпись по центру мобильной шапки */
+  .hdr-mobile-title {
+    display: block; text-align: center;
+    font-family: 'Rosa Marena', 'Palace Script MT', 'Brush Script MT', cursive;
+    font-size: 2.6rem; line-height: 1.2; color: var(--hdr-chocolate);
+    padding-top: 0.4rem; transition: opacity 0.3s ease;
+  }
+  /* Когда меню открыто — надпись прячется, чтобы не мешать */
+  .site-header.is-menu-open .hdr-mobile-title { display: none; }
+
+  /* Раскрывающееся список меню (плавно раздвигает контент) */
+  .hdr-mobile-menu {
+    max-height: 0; overflow: hidden; opacity: 0;
+    padding: 0 1.2rem; background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid rgba(105, 81, 63, 0.08);
+    transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.35s ease, padding 0.35s ease;
+  }
+  .hdr-mobile-menu.open { max-height: 500px; opacity: 1; padding: 1rem 1.2rem 1.4rem; }
+  .hdr-mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .hdr-mobile-nav a {
+    color: var(--hdr-text-secondary); text-decoration: none;
+    font-size: 1rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.6rem 1.5rem; border-radius: 8px; width: 100%; text-align: center;
+  }
+  .hdr-mobile-nav a.active {
+    color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .hdr-mobile-extra {
+    display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid rgba(105, 81, 63, 0.1);
+  }
+  .hdr-mobile-vk {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--hdr-chocolate); color: #fff; text-decoration: none;
+    font: 600 13px/1 'Roboto Condensed', sans-serif;
+  }
+  .hdr-mobile-phone {
+    color: var(--hdr-text-secondary); text-decoration: none;
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.1em;
+  }
+  .hdr-mobile-cta {
+    display: block; text-align: center;
+    background: var(--accent); color: #fff;
+    border: 2px solid var(--accent);
+    padding: calc(0.7rem - 2px) 2.5rem; border-radius: 50px;
+    font-size: 1rem; font-weight: 600; text-decoration: none;
+    margin-top: 1rem;
+  }
+  .hdr-mobile-cta:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+  .footer-inner { flex-direction: column; gap: 24px; }
+  .footer-inner > div:first-child { max-width: 100%; }
+  .footer-contacts { max-width: 100%; }
+  section { padding: 40px 0; }
+  /* Все многоцветные сетки в одну колонку */
+  .why-grid, .popular-grid, .trio-grid, .duo-grid, .about-grid, .contacts-grid, .legal-grid { grid-template-columns: 1fr; gap: 18px; }
+  /* Блок «О салоне» на телефоне: раскладка по порядку HTML —
+     заголовок, потом фото (высотой 300px), потом описание с кнопкой */
+  .about-grid .about-text-head, .about-grid .about-text-body, .about-grid .about-photo { grid-area: auto; }
+  .about-photo { height: 300px; }
+  .detail-grid .price-box { min-width: 100%; }
+  /* Каталог услуг на мобильном: категория и строка сжимаются */
+  .cat-head { gap: 14px; }
+  .cat-icon { width: 48px; height: 48px; }
+  .cat-icon svg { width: 20px; height: 20px; }
+  .cat-head h2 { font-size: 19px; }
+  .cat-block { padding: 14px 16px; }
+  /* Флоатинг и «Аренда СПА»: колонкой, текст по центру — как в Чатиуме */
+  .float-card, .rental-card { margin-top: 28px; }
+  .float-card-inner { flex-direction: column; text-align: center; padding: 24px; }
+  /* Название слева, цена под ним — как в чатиум-версии на телефоне */
+  .srv-row-main { flex-direction: column; gap: 8px; }
+  .srv-price-col { text-align: left; }
+  .srv-prices-stacked { align-items: flex-start; }
+  .site-footer { background-size: 380px auto; }
+  .cookie-banner { padding: 14px 18px; gap: 10px; }
+  /* Партнеры на телефоне: две колонки логотипов, полоса абонементов — колонкой */
+  .partners-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .partner-cell { height: 76px; padding: 14px 16px; }
+  .abon-band { flex-direction: column; text-align: center; padding: 24px; }
+
+  /* ---------- На узком экране все по центру ---------- */
+  /* Герой: текст по центру, абзац-лид и кнопки не прилипают к левому краю */
+  .hero-grid { text-align: center; }
+  .hero p.lead { margin-left: auto; margin-right: auto; }
+  /* Блок «О салоне»: текст центрируется, картинка встает по середине колонки */
+  .about-grid { text-align: center; }
+  /* Заголовок «О салоне» задан в HTML прижатым влево — на мобильном центруем */
+  .about-grid .section-title { text-align: center !important; }
+  .about-grid img { margin-left: auto; margin-right: auto; }
+  .promo-band-photo { margin-left: auto; margin-right: auto; }
+
+  /* ---------- Подвал на узком экране ---------- */
+  .footer-inner { align-items: center; text-align: center; }
+  .footer-logo { justify-content: center; }
+  .footer-social { justify-content: center; }
+  /* Колонку «Навигация» на узком экране не показываем — есть мобильное меню */
+  .footer-nav { display: none; }
+  /* Низ подвала в столбик: ссылка над строкой с годами */
+  .footer-bottom { flex-direction: column-reverse; justify-content: center; align-items: center; text-align: center; }
+
+  /* Кнопка «наверх» чуть ближе к краю */
+  .scroll-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+}
+
+/* ============================================================
+   ПРОБА 04.11.2026 — темная шапка с фирменным орнаментом
+   Фон как в подвале: шоколад #3d2d22 + орнамент pattern.png,
+   узор крупнее в 1,5 раза (у подвала 560px, здесь 840px).
+   Проба: если не понравится — удалить этот блок, шапка
+   вернется к белой.
+   ============================================================ */
+.site-header {
+  background:
+    linear-gradient(rgba(61, 45, 34, 0.78), rgba(61, 45, 34, 0.78)),
+    url('../img/pattern.png') center / 840px auto;
+  background-color: #3d2d22;
+  border-bottom: 1px solid rgba(236, 226, 215, 0.16);
+}
+.site-header.is-scrolled {
+  background:
+    linear-gradient(rgba(61, 45, 34, 0.9), rgba(61, 45, 34, 0.9)),
+    url('../img/pattern.png') center / 840px auto;
+  background-color: #3d2d22;
+  border-bottom-color: rgba(236, 226, 215, 0.2);
+  box-shadow: 0 4px 30px rgba(20, 14, 9, 0.35);
+}
+/* Тексты и элементы шапки — крем на темном, как в подвале */
+.hdr-logo-title { color: var(--cream); }
+.hdr-logo-sub { color: var(--cream); opacity: 0.7; }
+.hdr-sep {
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(236, 226, 215, 0.1) 20%,
+    rgba(236, 226, 215, 0.2) 50%,
+    rgba(236, 226, 215, 0.1) 80%, transparent 100%);
+}
+/* Кнопка «Записаться» — заливка акцентом страницы (как в светлой шапке) */
+.hdr-book { background: var(--accent); color: #fff; }
+.hdr-book:hover { background: transparent; color: var(--accent); }
+.hdr-nav a { color: var(--cream); opacity: 0.85; }
+.hdr-nav a:hover, .hdr-nav a.active { color: var(--accent); opacity: 1; }
+.hdr-nav a:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.hdr-nav a.active { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.hdr-phone { color: var(--cream); }
+.hdr-phone svg { color: var(--yellow); }
+.hdr-phone:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.hdr-vk { background: rgba(236, 226, 215, 0.14); color: var(--cream); }
+.hdr-vk:hover { background: var(--accent); color: #fff; }
+.hdr-search { color: var(--cream); opacity: 0.75; }
+.hdr-search:hover { color: var(--accent); opacity: 1; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+
+/* Мобильная шапка: те же тона (классы видны только на телефоне) */
+.hdr-burger span { background: var(--cream); }
+.hdr-mobile-title { color: var(--cream); }
+.hdr-mobile-icon { color: var(--cream); opacity: 0.85; }
+.hdr-mobile-menu {
+  background: rgba(61, 45, 34, 0.97);
+  border-top: 1px solid rgba(236, 226, 215, 0.12);
+}
+.hdr-mobile-nav a { color: var(--cream); }
+.hdr-mobile-nav a:hover { color: var(--accent); }
+.hdr-mobile-nav a.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.hdr-mobile-extra { border-top: 1px solid rgba(236, 226, 215, 0.12); }
+.hdr-mobile-vk { background: rgba(236, 226, 215, 0.14); color: var(--cream); }
+.hdr-mobile-phone { color: var(--cream); }
+.hdr-mobile-cta { background: var(--accent); color: #fff; }

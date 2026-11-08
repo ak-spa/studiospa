@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Правовая информация СПА-салона СтудиоСпа: пользовательское соглашение, политика конфиденциальности, согласие на обработку персональных данных, политика cookie.">
+  <title>Правовая информация — СПА-салон СтудиоСпа</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы — лаванда (решение Наты 07.11.2026) */
+    body { --accent: var(--mint); }
+    /* Оформление текстов документов (внутри них обычные абзацы и списки) */
+    #doc-content p { margin: 8px 0; }
+    #doc-content ul { padding-left: 22px; margin: 8px 0; }
+    #doc-content h4 { margin: 18px 0 6px; }
+  </style>
+</head>
+<body data-page="legal.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section style="padding-bottom:24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Правовая информация</p>
+        <h1 class="section-title" style="margin-top:12px">Правовая <span class="accent font-accent">информация</span></h1>
+      </div>
+    </section>
+
+    <!-- Выбор документа + его текст: содержимое берется из data/legal.js -->
+    <section style="padding-top:0">
+      <div class="container legal-grid">
+        <div class="card" style="padding:18px" id="doc-menu"></div>
+        <div class="card" style="padding:32px 38px">
+          <h2 class="font-accent" id="doc-title" style="font-size:30px;margin:0 0 4px"></h2>
+          <p class="section-sub" style="text-align:left;margin:0 0 18px" id="doc-subtitle"></p>
+          <div id="doc-content" style="color:var(--text-secondary);line-height:1.7"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/legal.js?v=3"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      const docs = await loadLegal();
+
+      // Кнопки выбора документа слева
+      const menu = document.getElementById('doc-menu');
+      menu.innerHTML = docs.map((d, i) => `
+        <button class="btn btn-ghost doc-btn" data-i="${i}"
+          style="display:block;width:100%;text-align:center;margin-bottom:8px;padding:10px 18px">${d.title}</button>`).join('');
+
+      function showDoc(i) {
+        document.querySelectorAll('.doc-btn').forEach((b, j) =>
+          b.style.background = j === i ? 'var(--accent)' : 'transparent');
+        document.querySelectorAll('.doc-btn').forEach((b, j) =>
+          b.style.color = j === i ? '#fff' : 'var(--accent)');
+        document.getElementById('doc-title').textContent = docs[i].title;
+        document.getElementById('doc-subtitle').textContent = docs[i].subtitle;
+        document.getElementById('doc-content').innerHTML = docs[i].content;
+      }
+      menu.addEventListener('click', e => {
+        const btn = e.target.closest('.doc-btn');
+        if (btn) showDoc(Number(btn.dataset.i));
+      });
+      // Открываем документ из ссылки ?doc=... либо первый в списке
+      const want = new URLSearchParams(location.search).get('doc');
+      const idx = Math.max(0, docs.findIndex(d => d.title.includes(want || '')));
+      showDoc(idx);
+    };
+  </script>
+</body>
+</html>

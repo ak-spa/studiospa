@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Поиск по услугам СПА-салона СтудиоСпа: массажи, уходы, флоатинг, программы.">
+  <title>Поиск по услугам — СПА-салон СтудиоСпа</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+</head>
+<body data-page="search.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section style="padding-bottom:24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Поиск</p>
+        <h1 class="section-title" style="margin-top:12px">Поиск по&nbsp;<span class="accent font-accent">услугам</span></h1>
+        <p class="section-sub">Введите название или ключевые слова — например, «массаж» или «флоатинг»</p>
+        <form id="search-form" style="display:flex;gap:12px;max-width:640px;margin:0 auto">
+          <input type="search" id="search-input" class="form-input" placeholder="Например: укутывание, стопы, детокс…" autofocus>
+          <button type="submit" class="btn btn-primary" style="white-space:nowrap">Найти</button>
+        </form>
+        <!-- Живые подсказки: клик — и поиск уже запущен, не надо угадывать слово -->
+        <div class="search-chips" id="search-chips">
+          <span class="chips-label">Часто ищут:</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Результаты поиска: фильтр по всей базе услуг -->
+    <section style="padding-top:12px">
+      <div class="container">
+        <p id="search-status" style="color:var(--text-light)"></p>
+        <div id="search-results" class="trio-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = async function () {
+      const { services, categories } = await loadServices();
+      const box = document.getElementById('search-results');
+      const status = document.getElementById('search-status');
+      const input = document.getElementById('search-input');
+
+      // Название категории по ключу — показываем под результатом,
+      // чтобы было видно, в каком разделе каталога искать услугу
+      const catName = key => (categories.find(c => c.key === key) || {}).name || '';
+
+      /* ---------- Словарь синонимов ----------
+         В прайсе «обертывание» — это «укутывание», «скраб» родич
+         «скрабированию». Если слово запроса не встретилось буквально,
+         поиск пробует родственные слова. */
+      const SYNONYMS = {
+        'обертывание': ['укутывание'],
+        'укутывание': ['обертывание'],
+        'обертывания': ['укутывание'],
+        'укутывания': ['обертывание'],
+        'скрабирование': ['скраб', 'пилинг'],
+        'скраб': ['скрабирование', 'пилинг'],
+        'пилинг': ['скраб', 'скрабирование'],
+        'чистка': ['очищение'],
+        'парный': ['двоих'],
+        'парная': ['двоих'],
+        'парные': ['двоих'],
+        'дуэт': ['двоих'],
+        'ванны': ['ванна', 'ванне'],
+        'ванна': ['ванны', 'ванне'],
+        'стопы': ['стоп'],
+        'пятки': ['стоп'],
+        'детокс': ['детокса', 'детоксу'],
+        'лицо': ['лица', 'лицу'],
+      };
+
+      /* Нормализация: «е» с точками сверху приравнивается к обычной «е»
+         (на сайте все слова хранятся без нее), плюс регистр приведен
+         к нижнему. */
+      const norm = t => String(t).toLowerCase().replace(/ё/g, 'е');
+
+      /* ---------- Варианты слова ----------
+         Кроме самого слова и его синонимов пробуем слово без одного и
+         двух последних символов — так «волосы» найдет «волос»,
+         «укутывания» — «укутывание». Обрезку делаем только у длинных
+         слов (от 5 символов), короткие не трогаем. */
+      function variantsFor(word) {
+        const base = [word, ...(SYNONYMS[word] || [])];
+        const out = new Set(base);
+        for (const b of base) {
+          if (b.length > 4) out.add(b.slice(0, -1));
+          if (b.length > 6) out.add(b.slice(0, -2));
+        }
+        return out;
+      }
+
+      function runSearch(query) {
+        const words = norm(query).trim().split(/[\s-]+/).filter(Boolean);
+        if (!words.length) { close(); return; }
+        const found = services.filter(s => {
+          // Текст, среди которого ищем: название, подраздел, описание, состав, категория
+          const hay = norm([s.name, s.subtitle, s.description, s.includes.join(' '), catName(s.category)].join(' '));
+          // Каждое слово запроса должно попасть хотя бы одним из своих вариантов
+          return words.every(w => {
+            for (const v of variantsFor(norm(w))) {
+              if (hay.includes(v)) return true;
+            }
+            return false;
+          });
+        });
+        // Результат по цене — от недорогого к дорогому, категории перемешиваются
+        found.sort((a, b) => a.price - b.price);
+        if (found.length) {
+          status.textContent = `Найдено услуг: ${found.length}`;
+          box.innerHTML = found.map(s => `
+            <a href="service.html?slug=${s.slug}" class="card reveal is-visible">
+              <span class="search-cat">${s.subtitle || catName(s.category)}</span>
+              <h3 class="font-accent" style="font-size:19px;margin:0 0 6px;display:inline">${s.name}</h3>
+              <span style="float:right;color:var(--accent);font-family:'Lora';font-weight:600">${formatPrice(s.price)}</span>
+              <p style="color:var(--text-secondary);margin:8px 0 0">${s.subtitle || (s.description || '').slice(0, 90)}</p>
+            </a>`).join('');
+        } else {
+          status.textContent = 'Ничего не найдено — попробуйте подсказку из строки «Часто ищут» или другой запрос';
+          box.innerHTML = '';
+        }
+      }
+
+      // Пустое состояние до первого поиска: просто скрываем сетку
+      function close() {
+        box.innerHTML = '';
+        status.textContent = '';
+      }
+
+      /* ---------- Подсказки «Часто ищут» ---------- */
+      const CHIPS = ['массаж', 'флоатинг', 'укутывание', 'лицо', 'для двоих', 'детокс', 'абонемент'];
+      const chipsBox = document.getElementById('search-chips');
+      CHIPS.forEach(q => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'search-chip';
+        b.textContent = q;
+        b.addEventListener('click', () => {
+          input.value = q;
+          runSearch(q);
+        });
+        chipsBox.appendChild(b);
+      });
+
+      document.getElementById('search-form').addEventListener('submit', e => {
+        e.preventDefault();
+        runSearch(input.value);
+      });
+      // Живой поиск: результат обновляется на каждое нажатие клавиши
+      input.addEventListener('input', e => runSearch(e.target.value));
+      // Если в адресе есть ?q=слово (поиск из шапки) — сразу ищем
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) { input.value = q; runSearch(q); }
+    };
+  </script>
+</body>
+</html>

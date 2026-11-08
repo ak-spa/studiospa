@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="СПА-салон СтудиоСпа в «Балтийской жемчужине»: флоатинг, СПА-массажные уходы, программы. Запись по телефону +7 (812) 929-20-16">
+  <title>СПА–салон СтудиоСпа на Адмирала Коновалова в «Балтийской жемчужине»</title>
+  <!-- Фавиконка (окончательный выбор 2026-10-09): draft-1, знак на прозрачном фоне. -->
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент главной страницы — желтый, как в чатиум-версии */
+    body { --accent: var(--yellow); }
+  </style>
+</head>
+<body data-page="index.html">
+  <header class="site-header"></header>
+
+  <main>
+    <!-- Герой: слева текст, справа фото рецепции.
+         Проба 04.11.2026: орнамент как в «Счастливых часах»
+         (pattern-happy, крупный шаг 1320px), тонировка плотнее
+         стандартной (0.92 против 0.88) — узор бледнее.
+         Откат: убрать style в атрибуте секции -->
+    <section class="hero" style="background:linear-gradient(rgba(61,45,34,.92),rgba(61,45,34,.92)),url('img/pattern-happy.png') center / 1320px auto">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="badge badge-promo">✦ О салоне</span>
+          <!-- Две строки заголовка; предлог «к» связан со словом «гармонии»
+     неразрывным пробелом, поэтому на узких экранах они переносятся вместе,
+     и «к» не остается в конце строки -->
+<h1>Ваше путешествие <span class="accent font-accent">к&nbsp;гармонии</span><br>начинается здесь</h1>
+          <p class="lead">Погрузитесь в мир истинного релакса и восстановления. Профессиональные
+             СПА-процедуры, забота о каждом госте и атмосфера полного умиротворения.</p>
+          <p class="btn-row" style="margin-top:28px">
+            <a href="contacts.html" class="btn btn-primary">Записаться на процедуру</a>
+            <a href="services.html" class="btn btn-ghost">Смотреть услуги</a>
+          </p>
+        </div>
+        <img class="hero-photo reveal" src="img/about-photo.png" alt="Рецепция СтудиоСпа">
+      </div>
+    </section>
+
+    <!-- О салоне: заголовок, фото и описание — отдельные блоки.
+         На компьютере раскладка та же (фото слева, текст справа),
+         а на телефоне фото встраивается между заголовком и описанием,
+         чтобы две картинки не шли друг за другом -->
+    <section>
+      <div class="container about-grid">
+        <div class="reveal about-text-head">
+          <span class="badge badge-promo">✦ О салоне</span>
+          <h2 class="section-title" style="text-align:left">СтудиоСпа — пространство <span class="accent font-accent">гармонии</span>, где каждая деталь создана для вашего отдыха</h2>
+        </div>
+        <!-- Рамка со скруглением + картинка чуть увеличена: левый скошенный
+             край фото уходит за границу, рамка остается ровной -->
+        <div class="reveal about-photo">
+          <img src="img/about-lounge.jpg" alt="Зона отдыха СтудиоСпа: мягкие кресла и мозаичная стена">
+        </div>
+        <div class="reveal about-text-body">
+          <p>Добро пожаловать в СтудиоСпа — место, где время замедляет свой бег, а заботы
+             растворяются в атмосфере тепла и уюта.</p>
+          <p>Мы используем премиальную косметику и авторские методики, чтобы подарить
+             вам истинное наслаждение. Каждая процедура — это особенное путешествие,
+             полное приятных ощущений.</p>
+          <p>Наши специалисты — дипломированные профессионалы с многолетним опытом,
+             которые найдут подход к каждому гостю.</p>
+          <p style="margin-top:24px"><a href="contacts.html" class="btn btn-primary">Записаться</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Почему выбирают нас: фон слегка тонирован ТЕПЛЫМ какао
+         (желтая тонировка на некоторых экранах отливала зеленцой) -->
+    <section style="background:color-mix(in srgb, var(--cocoa) 6%, white)">
+      <div class="container">
+        <h2 class="section-title reveal">Почему выбирают <span class="accent font-accent">нас</span></h2>
+        <p class="section-sub reveal">Забота о каждом госте — наша философия</p>
+        <div class="why-grid">
+          <!-- Иконки: лист (косметика), человек (мастера), сердце (подход), лотос (атмосфера) -->
+          <div class="card why-card reveal">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 12-4 16-9 16z"/><path d="M12 12c-2 2-3.5 4.5-4 8"/></svg>
+            </div>
+            <h3 class="font-accent why-title">Премиум косметика</h3>
+            <p class="why-desc">Работаем только с лучшими мировыми брендами</p>
+          </div>
+          <div class="card why-card reveal">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
+            </div>
+            <h3 class="font-accent why-title">Опытные мастера</h3>
+            <p class="why-desc">Дипломированные специалисты с опытом от 5 лет</p>
+          </div>
+          <div class="card why-card reveal">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.3 5.3 0 0 1 12 6.6 5.3 5.3 0 0 1 21.3 12c-2.3 4.4-9.3 9-9.3 9z"/></svg>
+            </div>
+            <h3 class="font-accent why-title">Индивидуальный подход</h3>
+            <p class="why-desc">Программа подбирается под ваши потребности</p>
+          </div>
+          <div class="card why-card reveal">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c2 1.8 3 4.2 3 6.5 0 2.5-1.5 4.5-3 6.5-1.5-2-3-4-3-6.5 0-2.3 1-4.7 3-6.5z"/><path d="M4 10.5c2.6.4 4.8 1.7 6 3.7.9 1.6 1.3 3.5 1.6 5.3-2.6-.4-4.8-1.7-6-3.7-.9-1.6-1.3-3.5-1.6-5.3z"/><path d="M20 10.5c-2.6.4-4.8 1.7-6 3.7-.9 1.6-1.3 3.5-1.6 5.3 2.6-.4 4.8-1.7 6-3.7.9-1.6 1.3-3.5 1.6-5.3z"/></svg>
+            </div>
+            <h3 class="font-accent why-title">Уютная атмосфера</h3>
+            <p class="why-desc">Интерьер, созданный для полного расслабления</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Популярные процедуры: наполняются из реальной базы услуг.
+         Темно-шоколадная полоса (пожелание владельца — потемнее):
+         карточки остаются белыми и читаются на шоколаде. -->
+    <section class="band-dark">
+      <div class="container">
+        <h2 class="section-title reveal">Популярные <span class="accent font-accent">процедуры</span></h2>
+        <p class="section-sub reveal">То, что выбирают наши гости чаще всего</p>
+        <div id="popular-grid" class="popular-grid"></div>
+        <p style="text-align:center;margin-top:36px">
+          <a href="services.html" class="btn btn-ghost">Смотреть все услуги</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Цитата на фирменном паттерне (символы салона) -->
+    <section class="quote-band">
+      <div class="container reveal">
+        <div style="font-size:88px;color:var(--coral);line-height:0.6">”</div>
+        <p style="max-width:720px;margin:0 auto;font-size:19px">Наши процедуры и программы позволят вам оставить все проблемы
+           и суету за дверями нашей студии, восстановить тонус и иммунитет, вернуть жизненные силы и укрепить здоровье.</p>
+      </div>
+    </section>
+
+    <!-- Акция «Счастливые часы»: раскладка — как в чатиум-версии.
+         Подложка — орнамент на всю ширину (без цветной заливки);
+         белая пелена поверх паттерна делает линии бледнее -->
+    <!-- Орнамент на всю ширину; пелена поверх бледнее с 04.11.2026:
+         90% белого вместо 80% — узор мягче (просьба Наты) -->
+    <section style="background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.9)),url('img/pattern-happy.png') center / 1320px auto">
+      <div class="container">
+        <div class="promo-band reveal">
+          <img src="img/happy-hours.png" alt="Счастливые часы в СтудиоСпа — чайный стол с подсвеченной соляной стеной" class="promo-band-photo">
+          <div class="promo-band-body">
+            <span>✦ Акция</span>
+            <h2>«Счастливые часы» <span class="accent font-accent">в&nbsp;СтудиоСпа</span></h2>
+            <p>По&nbsp;будням с&nbsp;10:00 до&nbsp;15:00 — скидка <strong>20%</strong> на&nbsp;флоатинг.<br>
+               Идеальное время, чтобы подарить себе невесомость и&nbsp;полное расслабление.</p>
+            <a href="contacts.html" class="btn btn-primary">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Партнеры и поставщики: темно-шоколадная полоса — белые логотипы
+         видны только на темном фоне, поэтому она под стать им -->
+    <section class="band-dark">
+      <div class="container">
+        <h2 class="section-title reveal">Наши <span class="accent font-accent">партнеры</span></h2>
+        <p class="section-sub reveal">Работаем с премиальной профессиональной косметикой</p>
+        <!-- Оставлены только действующие бренды (указание Наты 04.11.2026):
+             остальных поставщиков убрали. Плашки вместо логотипов: файлов
+             Давинес и Талассо пока нет, надписи набраны шрифтом сайта -->
+        <div class="partners-grid reveal" style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px;max-width:720px;margin:0 auto">
+          <div class="partner-cell" style="width:300px"><div class="partner-name">Давинес<small>косметика для волос</small></div></div>
+          <div class="partner-cell" style="width:300px"><div class="partner-name">Талассо<small>косметика для талассо-ритуалов</small></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    /* Наполнение главной из данных */
+    window.initPage = async function (site) {
+      const { services } = await loadServices();
+
+      // Популярные: ровно три карточки, порядок как договорились с Натой
+      const POPULAR_SLUGS = ['floating-90-minut', 'lomi-lomi', 'vozvraschenie-sily-dlya-nee'];
+      const popular = POPULAR_SLUGS.map(slug => services.find(s => s.slug === slug)).filter(Boolean);
+      document.getElementById('popular-grid').innerHTML = popular.map((s, i) => `
+        <a href="services.html#${s.slug}" class="card pop-card reveal" style="animation-delay:${i * 60}ms">
+          <div class="pop-top">
+            <h3 class="pop-title">${s.name}</h3>
+            <span class="pop-price">${formatPrice(s.price)}</span>
+          </div>
+          <p class="pop-desc">${s.description.slice(0, 110)}${s.description.length > 110 ? '…' : ''}</p>
+        </a>`).join('');
+
+      // Карточки нарисованы скриптом — включаем для них анимацию появления заново
+      initReveal();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="СПА-этикет СтудиоСпа: как подготовиться к визиту, правила во время и после процедуры. Подготовка поможет получить максимум пользы.">
+  <title>СПА-этикет — СПА-салон СтудиоСпа</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы — желтый, как в чатиум-версии */
+    body { --accent: var(--yellow); }
+  </style>
+</head>
+<body data-page="etiquette.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section style="padding-bottom:24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → СПА-этикет</p>
+        <h1 class="section-title" style="margin-top:12px">СПА-<span class="accent font-accent">этикет</span></h1>
+        <p class="section-sub">Правила, которые помогут вам получить максимум от визита</p>
+      </div>
+    </section>
+
+    <!-- Разделы правил: наполняются из js ниже -->
+    <section style="padding-top:0">
+      <div class="container" id="rules"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = function () {
+      // Тексты: структура и оформление — наша редакция (гибрид),
+      // все правила сверены с оригиналом studiospa.spb.ru/etiket
+      // Иконки — тонкие линейные SVG вместо эмодзи (как на странице флоатинга)
+      const ETQ_ICONS = {
+        // часы: подготовка ко времени
+        clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>',
+        // цветок-лотос: спокойствие во время процедуры
+        lotus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c1.8 2.2 1.8 6 0 8.2C10.2 11 10.2 7.2 12 5z"/><path d="M6.7 9.5c2.7 1.4 4.8 4 5.3 7.3-3-.4-5.8-2.6-5.3-7.3z"/><path d="M17.3 9.5c.5 4.7-2.3 6.9-5.3 7.3.5-3.3 2.6-5.9 5.3-7.3z"/><path d="M5 18.5c4.7 2 9.3 2 14 0"/></svg>',
+        // чашка с паром: чай после процедуры
+        tea: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10h11v4.5A3.5 3.5 0 0 1 12.5 18h-4A3.5 3.5 0 0 1 5 14.5V10z"/><path d="M16 11h1.5a2 2 0 0 1 0 4H16"/><path d="M8.5 4.5c0 .8 1 1.2 1 2M12 4.5c0 .8 1 1.2 1 2"/><path d="M4 21h13"/></svg>',
+        // список с точками: общие правила
+        rules: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h10"/><path d="M10 12h10"/><path d="M10 18h10"/><circle cx="5.5" cy="6" r="1.3"/><circle cx="5.5" cy="12" r="1.3"/><circle cx="5.5" cy="18" r="1.3"/></svg>',
+      };
+
+      const rules = [
+        {
+          title: 'Подготовка к визиту', icon: 'clock', items: [
+            'Рекомендуем прибывать за <b>10–15 минут</b> до начала процедуры — это позволит вам переодеться, заполнить анкету и настроиться на релакс.',
+            'Примите душ перед процедурой — в салоне есть все необходимое: полотенца, гель для душа, шапочка.',
+            'Воздержитесь от плотной еды за 1–1,5 часа до процедуры — примерно за час до начала можно неплотно перекусить.',
+            'Ценные вещи и украшения можно оставить в индивидуальном шкафчике.',
+          ],
+        },
+        {
+          title: 'Во время процедуры', icon: 'lotus', items: [
+            'Сообщите мастеру о своих пожеланиях: сила нажатия, зоны, требующие особого внимания, температура в помещении.',
+            'Не стесняйтесь говорить, если вам дискомфортно или вы хотите что-то изменить — мы работаем для вашего комфорта.',
+            'Постарайтесь отключить телефон или оставить его в раздевалке — это время только для вас.',
+            'Дышите глубоко и ровно, расслабьте мышцы — так эффект от процедуры будет максимальным.',
+          ],
+        },
+        {
+          title: 'После процедуры', icon: 'tea', items: [
+            'После процедуры вам предложат чай или травяной напиток — не торопитесь уходить, дайте организму адаптироваться.',
+            'В течение часа после массажа пейте больше воды — это помогает вывести токсины.',
+            'Не планируйте сразу после салона активную деятельность — позвольте себе остаться в состоянии релакса.',
+            'Не принимайте горячую ванну или душ в течение 2–3 часов после глубоких процедур.',
+          ],
+        },
+        {
+          title: 'Общие правила', icon: 'rules', items: [
+            'В салоне действует <b>безобувной режим</b> — при входе переобувайтесь в тапочки.',
+            'У нас тихая зона — в студии царят тишина и спокойствие: отключайте мобильные телефоны и другие устройства, просим говорить не громко.',
+            'Употребление алкогольных напитков в СтудиоСпа недопустимо.',
+            'Просим уважительно относиться к персоналу СтудиоСпа — ваш комфорт и спокойствие напрямую зависят от соблюдения этих простых правил.',
+            'Если вы задерживаетесь или вынуждены отменить запись — предупредите администратора по телефону, чтобы мы могли пригласить вместо вас другого гостя.',
+            'По правилам студии мы вправе отказать в приеме без объяснения причин.',
+            'Желаем вам приятного отдыха и ждем вас в гости!',
+          ],
+        },
+      ];
+
+      document.getElementById('rules').innerHTML = rules.map(r => `
+        <div class="card reveal" style="margin-bottom:20px">
+          <div class="etq-head">
+            <div class="etq-icon">${ETQ_ICONS[r.icon]}</div>
+            <h2 class="font-accent" style="margin:0;font-size:26px">${r.title}</h2>
+          </div>
+          <ul style="margin:0;padding-left:22px;color:var(--text-secondary)">
+            ${r.items.map(i => `<li style="margin-bottom:8px">${i}</li>`).join('')}
+          </ul>
+        </div>`).join('');
+      initReveal();
+    };
+  </script>
+</body>
+</html>

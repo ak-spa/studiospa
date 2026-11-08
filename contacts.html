@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Контакты СПА-салона СтудиоСпа: СПб, ул. Адмирала Коновалова, 2-4, ЖК «Балтийская жемчужина». Телефон +7 (812) 929-20-16, ежедневно 10:00–21:00.">
+  <title>Контакты — СПА-салон СтудиоСпа в «Балтийской жемчужине»</title>
+  <link rel="icon" href="img/favicon-draft-1.png?d=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=35">
+  <style>
+    /* Акцент страницы контактов — ментол (решение Наты 07.11.2026) */
+    body { --accent: var(--menthol); }
+    /* Значки-иконки в блоке «Как нас найти» — тонкие линии, как в подвале */
+    .contact-row svg { width:16px; height:16px; vertical-align:-3.5px; margin-right:7px; }
+  </style>
+</head>
+<body data-page="contacts.html">
+  <header class="site-header"></header>
+
+  <main>
+    <section style="padding-bottom:24px">
+      <div class="container">
+        <p class="breadcrumbs"><a href="index.html">Главная</a> → Контакты</p>
+        <h1 class="section-title" style="margin-top:12px">Контакты и <span class="accent font-accent">запись</span></h1>
+        <p class="section-sub">Мы всегда рады новым и постоянным гостям</p>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="container contacts-grid">
+        <!-- Контакты из data/site.js -->
+        <div class="card reveal">
+          <h3 class="font-accent" style="font-size:22px;margin:0 0 16px">Как нас найти</h3>
+          <!-- Значки-иконки — те же тонкие линии, что и в подвале (ICON_PIN, ICON_CLOCK,
+               ICON_PHONE_LINE, ICON_MAIL задаются в js/app.js) -->
+          <p class="contact-row" id="c-address"></p>
+          <p class="contact-row" id="c-metro" style="color:var(--text-secondary)"></p>
+          <p class="contact-row" id="c-schedule"></p>
+          <p class="contact-row" id="c-phone-row"></p>
+          <p class="contact-row" id="c-email-row"></p>
+          <p style="margin-top:14px">
+            <a href="#" id="c-vk" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-bottom:10px">Мы во ВКонтакте</a>
+            <!-- Мессенджер MAX — официально разрешенная платформа в РФ,
+                 ссылка оформлена так же, как «Мы во ВКонтакте». -->
+            <a href="#" id="c-max" target="_blank" rel="noopener" class="btn btn-ghost">Мы в MAX</a>
+          </p>
+          <p class="contact-row" id="c-warn" style="color:var(--text-light);font-size:14px;font-weight:500;margin-top:18px">
+            Имеются противопоказания. Необходима консультация специалиста.</p>
+        </div>
+
+        <!-- Карта: iframe виджета Яндекс.Карт, без всплывающих окон -->
+        <div class="card reveal" style="padding:0;overflow:hidden">
+          <iframe id="map" width="100%" height="480" frameborder="0" allowfullscreen="true" loading="lazy"
+            title="Схема проезда к СПА-салону СтудиоСпа"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+  <script src="data/site.js"></script>
+  <script src="data/services.js"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    window.initPage = function (site) {
+      const s = site.salon;
+      /* Значок-восклицание для строки о противопоказаниях: не было в app.js,
+         рисуется в том же тонком стиле линий */
+      const ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10.2v4.3"/><path d="M12 16.9v.01"/></svg>';
+      // innerHTML (а не textContent) — чтобы неразрывные пробелы из site.js не показались как «&nbsp;»
+      document.getElementById('c-address').innerHTML = `${ICON_PIN} ${s.address}<br><span style="color:var(--text-secondary)">${s.addressNote}</span>`;
+      document.getElementById('c-metro').innerHTML = s.metro;
+      document.getElementById('c-schedule').innerHTML = `${ICON_CLOCK} ${s.schedule}`;
+      document.getElementById('c-phone-row').innerHTML = `${ICON_PHONE_LINE} <a id="c-phone" href="${s.phoneLink}">${s.phone}</a>`;
+      document.getElementById('c-email-row').innerHTML = `${ICON_MAIL} <a id="c-email" href="mailto:${s.email}">${s.email}</a>`;
+      document.getElementById('c-warn').innerHTML = `${ICON_WARN} Имеются противопоказания. Необходима консультация специалиста.`;
+      document.getElementById('c-vk').href = s.vk;
+      document.getElementById('c-max').href = s.max;
+      // Виджет карты: точка салона на координатах из site.js
+      document.getElementById('map').src =
+        `https://yandex.ru/map-widget/v1/?ll=${s.coords.lng}%2C${s.coords.lat}&z=16&pt=${s.coords.lng}%2C${s.coords.lat}`;
+      initReveal();
+    };
+  </script>
+</body>
+</html>
