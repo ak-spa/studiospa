@@ -180,7 +180,7 @@
       const { services } = await loadServices();
 
       // Популярные: ровно три карточки, порядок как договорились с Натой
-      const POPULAR_SLUGS = ['floating-90-minut', 'lomi-lomi', 'vozvraschenie-sily-dlya-nee'];
+      const POPULAR_SLUGS = ['floating-90-minut', 'akvameditaciya', 'lomi-lomi'];
       const popular = POPULAR_SLUGS.map(slug => services.find(s => s.slug === slug)).filter(Boolean);
       document.getElementById('popular-grid').innerHTML = popular.map((s, i) => `
         <a href="services.html#${s.slug}" class="card pop-card reveal" style="animation-delay:${i * 60}ms">
