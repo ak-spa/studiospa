@@ -303,18 +303,22 @@ function renderFooter(salon) {
     <div class="footer-bottom container">
       <span>© 2019 – 2026 СтудиоСпа</span>
       <a href="legal.html">Правовая информация</a>
+      <!-- Меняет выбор по cookie: открывает плашку заново (обработчик в initCookieSettings) -->
+      <a href="#" id="cookie-settings">Настройки cookie</a>
     </div>`;
 }
 
 /* ---------- Cookie-плашка ----------
    По закону нужно уведомить гостя о файлах cookie и получить согласие,
    при этом у гостя должен быть и выбор «отказаться».
-   Ответ хранится в localStorage (память браузера): '1' = согласие,
-   '2' = отказ. Плашка показывается, только пока выбор не сделан. */
+   Ответ хранится в localStorage (память браузера): '1' = согласие («Принять»),
+   '2' = отказ («Отклонить»). Плашка показывается, только пока выбор не сделан.
+   Ссылка «Настройки cookie» в подвале стирает ответ и открывает плашку заново. */
 function initCookieBanner() {
+  // Не создаем вторую плашку, если она уже открыта
+  if (document.querySelector('.cookie-banner')) return;
   const saved = localStorage.getItem('spa-cookie-ok');
   if (saved === '1' || saved === '2') {
-    // Если ранее был только скрыт плашки без ответа — старое значение '1' уже согласие
     document.dispatchEvent(new CustomEvent('cookie-consent', { detail: saved }));
     return;
   }
@@ -322,15 +326,16 @@ function initCookieBanner() {
   el.className = 'cookie-banner';
   el.innerHTML = `
     <p>🍪 Мы используем файлы cookie и локальное хранилище браузера, чтобы сайт корректно
-       работал и запоминал ваши настройки. На странице «Контакты» подключена карта
-       Яндекс.Карты: при загрузке карты Яндекс получает ваш IP-адрес и может ставить свои
-       cookie. Подробнее — в <a href="legal.html?doc=cookie">политике использования cookie</a>.</p>
+       работал и запоминал ваши настройки. Статистику посещений собирает сервис
+       Яндекс.Метрика — ее код загружается только после нажатия «Принять». На странице
+       «Контакты» карта Яндекс.Карты загружается по вашему выбору. Подробнее —
+       в <a href="legal.html?doc=cookie">политике использования cookie</a>.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <button class="btn btn-primary" data-cookie="1" style="padding:9px 26px;font-size:14px">Хорошо</button>
+      <button class="btn btn-primary" data-cookie="1" style="padding:9px 26px;font-size:14px">Принять</button>
       <!-- Отказ: кнопка в цвет плашки с рамкой, чтобы не терялась на темном фоне -->
       <button class="btn" data-cookie="2"
         style="padding:9px 18px;font-size:14px;background:transparent;color:#ece2d7;border:1px solid rgba(236,226,215,.5)">
-        Отказаться</button>
+        Отклонить</button>
     </div>`;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add('show'));
@@ -342,6 +347,44 @@ function initCookieBanner() {
   el.querySelector('[data-cookie="1"]').addEventListener('click', () => answer('1'));
   el.querySelector('[data-cookie="2"]').addEventListener('click', () => answer('2'));
 }
+
+/* Ссылка «Настройки cookie» в подвале: стирает прежний выбор и показывает
+   плашку заново — так гость может поменять «Принять» на «Отклонить» и наоборот */
+function initCookieSettings() {
+  document.querySelectorAll('#cookie-settings').forEach(link => {
+    if (link.dataset.cookieSettingsBound) return;
+    link.dataset.cookieSettingsBound = '1';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const oldBanner = document.querySelector('.cookie-banner');
+      if (oldBanner) oldBanner.remove();
+      localStorage.removeItem('spa-cookie-ok');
+      initCookieBanner();
+    });
+  });
+}
+
+/* ---------- Счетчик Яндекс.Метрики ----------
+   По Политике конфиденциальности счетчик загружается ТОЛЬКО после нажатия
+   «Принять» в cookie-плашке. Счетчик принадлежит владельцу — когда придет его
+   номер, вписать его в METRICA_ID вместо 0; до этого загрузка ничего не делает.
+   Функции записи сессий «Вебвизор» и расширенные режимы не включаются. */
+let METRICA_ID = 0; // номер счетчика Яндекса (вписать после подключения)
+function loadMetrika() {
+  if (!METRICA_ID || window.ym) return;
+  window.ym = window.ym || function () {
+    (window.ym.a = window.ym.a || []).push(arguments);
+  };
+  window.ym.l = 1 * new Date();
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://mc.yandex.ru/metrika/tag.js';
+  document.head.appendChild(s);
+  window.ym(METRICA_ID, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true });
+}
+document.addEventListener('cookie-consent', (e) => {
+  if (e.detail === '1') loadMetrika();
+});
 
 /* ---------- Плавное появление блоков при прокрутке ---------- */
 function initReveal() {
@@ -425,4 +468,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   initReveal();
   initScrollTop();
   initCookieBanner();
+  initCookieSettings();
 });
