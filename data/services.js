@@ -1,4 +1,4 @@
-/* Данные services — подключаются тегом script на страницах */
+﻿/* Данные services — подключаются тегом script на страницах */
 window.SERVICES_DATA = {
   "categories": [
     {

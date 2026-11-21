@@ -12,7 +12,6 @@ window.SITE_DATA = {
     "email": "studiospaspb@mail.ru",
     "vk": "https://vk.ru/club237725401",
     "max": "https://max.ru/u/f9LHodD0cOLWGgkbLZO_liCmkCwvEeBRodbO5e4G42ce2_SCjeneIfnQg8Y",
-    "messenger": "https://wa.me/78129292016",
     "coords": { "lat": 59.849989, "lng": 30.149707 },
     "mapAddress": "Санкт-Петербург, ул. Адмирала Коновалова, 2-4"
   },
