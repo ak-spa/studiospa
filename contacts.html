@@ -49,8 +49,10 @@
             Имеются противопоказания. Необходима консультация специалиста.</p>
         </div>
 
-        <!-- Карта: iframe виджета Яндекс.Карт, без всплывающих окон -->
-        <div class="card reveal" style="padding:0;overflow:hidden">
+        <!-- Карта: iframe виджета Яндекс.Карт. Загружается только с согласия на cookie
+             (плашка при первом посещении) или после нажатия кнопки «Показать карту» —
+             при отказе браузер не обращается к серверам Яндекса: IP не передается, cookie не ставятся -->
+        <div class="card reveal" style="padding:0;overflow:hidden" id="map-box">
           <iframe id="map" width="100%" height="480" frameborder="0" allowfullscreen="true" loading="lazy"
             title="Схема проезда к СПА-салону СтудиоСпа"></iframe>
         </div>
@@ -61,7 +63,7 @@
   <footer class="site-footer"></footer>
   <script src="data/site.js"></script>
   <script src="data/services.js"></script>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/app.js?v=6"></script>
   <script>
     window.initPage = function (site) {
       const s = site.salon;
@@ -77,9 +79,38 @@
       document.getElementById('c-warn').innerHTML = `${ICON_WARN} Имеются противопоказания. Необходима консультация специалиста.`;
       document.getElementById('c-vk').href = s.vk;
       document.getElementById('c-max').href = s.max;
-      // Виджет карты: точка салона на координатах из site.js
-      document.getElementById('map').src =
+      // Виджет карты: точка салона на координатах из site.js.
+      // Загружаем только с согласия на cookie ('1' в localStorage) или по явному
+      // нажатию «Показать карту» — до этого браузер не обращается к Яндексу.
+      const MAP_URL =
         `https://yandex.ru/map-widget/v1/?ll=${s.coords.lng}%2C${s.coords.lat}&z=16&pt=${s.coords.lng}%2C${s.coords.lat}`;
+      const mapEl = document.getElementById('map');
+      const showMap = () => { mapEl.src = MAP_URL; };
+      const loadByConsent = () => {
+        const asked = document.getElementById('map-ask');
+        if (asked) asked.remove();
+        mapEl.style.display = '';
+        showMap();
+      };
+      if (localStorage.getItem('spa-cookie-ok') === '1') {
+        showMap();
+      } else {
+        // Заглушка вместо карты до согласия: объясняет, что даст нажатие кнопки
+        const ask = document.createElement('div');
+        ask.id = 'map-ask';
+        ask.style.cssText = 'padding:48px 24px;text-align:center';
+        ask.innerHTML = `
+          <p style="margin:0 0 6px;font-weight:600">Карта загружается по вашему выбору</p>
+          <p style="margin:0 0 18px;color:var(--text-secondary);font-size:14px">
+            Карта работает на сервисе Яндекс.Карты: при загрузке Яндекс получает
+            ваш IP-адрес и может поставить свои cookie.</p>
+          <button class="btn btn-primary" id="map-load" style="padding:10px 24px;font-size:14px">Показать карту</button>`;
+        mapEl.style.display = 'none';
+        document.getElementById('map-box').prepend(ask);
+        ask.querySelector('#map-load').addEventListener('click', loadByConsent);
+        // Гость нажал «Хорошо» на cookie-плашке прямо сейчас — карта подгружается сама
+        document.addEventListener('cookie-consent', (e) => { if (e.detail === '1') loadByConsent(); });
+      }
       initReveal();
     };
   </script>

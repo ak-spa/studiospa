@@ -307,25 +307,40 @@ function renderFooter(salon) {
 }
 
 /* ---------- Cookie-плашка ----------
-   По закону нужно уведомить гостя о файлах cookie и получить согласие.
-   Согласие хранится в localStorage (память браузера) и плашка не мешает
-   при следующих визитах. Подробнее — страница правовой информации. */
+   По закону нужно уведомить гостя о файлах cookie и получить согласие,
+   при этом у гостя должен быть и выбор «отказаться».
+   Ответ хранится в localStorage (память браузера): '1' = согласие,
+   '2' = отказ. Плашка показывается, только пока выбор не сделан. */
 function initCookieBanner() {
-  if (localStorage.getItem('spa-cookie-ok') === '1') return;
+  const saved = localStorage.getItem('spa-cookie-ok');
+  if (saved === '1' || saved === '2') {
+    // Если ранее был только скрыт плашки без ответа — старое значение '1' уже согласие
+    document.dispatchEvent(new CustomEvent('cookie-consent', { detail: saved }));
+    return;
+  }
   const el = document.createElement('div');
   el.className = 'cookie-banner';
   el.innerHTML = `
-    <p>🍪 Мы используем файлы cookie — они помогают сайту корректно работать
-       и запоминать ваши предпочтения.<br>
-       Оставаясь на сайте, вы соглашаетесь
-       с <a href="legal.html?doc=cookie">политикой использования cookie</a>.</p>
-    <button class="btn btn-primary" style="padding:9px 26px;font-size:14px">Хорошо</button>`;
+    <p>🍪 Мы используем файлы cookie и локальное хранилище браузера, чтобы сайт корректно
+       работал и запоминал ваши настройки. На странице «Контакты» подключена карта
+       Яндекс.Карты: при загрузке карты Яндекс получает ваш IP-адрес и может ставить свои
+       cookie. Подробнее — в <a href="legal.html?doc=cookie">политике использования cookie</a>.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-primary" data-cookie="1" style="padding:9px 26px;font-size:14px">Хорошо</button>
+      <!-- Отказ: кнопка в цвет плашки с рамкой, чтобы не терялась на темном фоне -->
+      <button class="btn" data-cookie="2"
+        style="padding:9px 18px;font-size:14px;background:transparent;color:#ece2d7;border:1px solid rgba(236,226,215,.5)">
+        Отказаться</button>
+    </div>`;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add('show'));
-  el.querySelector('button').addEventListener('click', () => {
-    localStorage.setItem('spa-cookie-ok', '1');
+  const answer = (value) => {
+    localStorage.setItem('spa-cookie-ok', value);
     el.classList.remove('show');
-  });
+    document.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
+  };
+  el.querySelector('[data-cookie="1"]').addEventListener('click', () => answer('1'));
+  el.querySelector('[data-cookie="2"]').addEventListener('click', () => answer('2'));
 }
 
 /* ---------- Плавное появление блоков при прокрутке ---------- */
