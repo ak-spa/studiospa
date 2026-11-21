@@ -276,7 +276,7 @@ function renderFooter(salon) {
           <a href="${salon.vk}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="ВКонтакте">VK</a>
           <a href="${salon.max}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Мессенджер MAX">MAX</a>
         </div>
-        <p class="footer-legal">ИП Федоренко И. А.<br>ИНН 780710032085</p>
+        <p class="footer-legal">ИП Федоренко И. А.<br>ИНН 780710032085<br>ОГРН(ИП) 318784700378518</p>
         <p class="footer-note">При использовании материалов ссылка на&nbsp;сайт обязательна</p>
       </div>
       <div class="footer-nav">
